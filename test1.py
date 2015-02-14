@@ -13,6 +13,9 @@ def  runA():
 def runB():
     return test_b()
 
+def runAB():
+    return test_a_b()
+
 def test_a():
     try:
         assert test3.a() == True
@@ -29,4 +32,11 @@ def test_b():
         print("test_b screwed up!!")
         return 1
 
+def test_a_b():
+    try:
+        assert test3.b() == False and test3.a() == True
+        return 0
+    except AssertionError:
+        print("test_a_b screwed up!!")
+        return 1
 
