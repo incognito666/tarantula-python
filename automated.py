@@ -17,17 +17,19 @@ import fnmatch
 ##
 i=0
 res = []
+listmethod=['runA','runAB','runB']
 for file in os.listdir():
     if fnmatch.fnmatch(file, 'test_*.py'):
         print(file)
         cov.start()
-##        f = file[:-3]
+        f = file[:-3]
         ##print(f)
         loader = importlib.machinery.SourceFileLoader('mmm', file)
         mod = loader.load_module()
         ##subprocess.Popen("python "+file)
+        result = getattr(mod, listmethod[i])()
         cov.stop()
-        ##print(mod)
+        print(res)
         res=cov.analysis('test3.py')
         print(res)
         i+=1
