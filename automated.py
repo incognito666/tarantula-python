@@ -2,17 +2,18 @@ import os
 import importlib.machinery
 import subprocess
 from coverage import coverage
+
+def getName(filename):
+    f = open(filename)
+    contents = f.read()
+    start = contents.find('def')
+    end = contents.find('(',start)
+##    print(contents[start+4:end])
+    f.close()
+    return contents[start+4:end]
+
+    
 cov = coverage()
-cov.erase()
-##cov.start()
-#import test_a
-##import test3
-
-##import test
-
-##print(os.getcwd())
-####os.chdir('test')
-##print(os.listdir())
 import fnmatch
 ##
 i=0
@@ -21,15 +22,18 @@ listmethod=['runA','runAB','runB']
 for file in os.listdir():
     if fnmatch.fnmatch(file, 'test_*.py'):
         print(file)
+        cov.erase()
         cov.start()
         f = file[:-3]
         ##print(f)
         loader = importlib.machinery.SourceFileLoader('mmm', file)
         mod = loader.load_module()
-        ##subprocess.Popen("python "+file)
-        result = getattr(mod, listmethod[i])()
+        funcName = getName(file)
+##        result = getattr(mod, listmethod[i])()
+        result = getattr(mod,funcName)()
+        print("result :"+str(result))
         cov.stop()
-        print(res)
+        ##print(res)
         res=cov.analysis('test3.py')
         print(res)
         i+=1

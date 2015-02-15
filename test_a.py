@@ -5,7 +5,7 @@ import test3
 
 ##class DemoTest(unittest.TestCase):
 
-def  runA():
+def runA():
     print(os.getcwd())
     return test_a()
 
