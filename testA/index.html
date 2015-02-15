@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -6,32 +6,26 @@
     <link rel='stylesheet' href='style.css' type='text/css'>
     
     <script type='text/javascript' src='jquery.min.js'></script>
-    <script type='text/javascript' src='jquery.debounce.min.js'></script>
     <script type='text/javascript' src='jquery.tablesorter.min.js'></script>
     <script type='text/javascript' src='jquery.hotkeys.js'></script>
     <script type='text/javascript' src='coverage_html.js'></script>
-    <script type='text/javascript'>
+    <script type='text/javascript' charset='utf-8'>
         jQuery(document).ready(coverage.index_ready);
     </script>
 </head>
-<body class='indexfile'>
+<body id='indexfile'>
 
 <div id='header'>
     <div class='content'>
         <h1>Coverage report:
-            <span class='pc_cov'>52%</span>
+            <span class='pc_cov'>40%</span>
         </h1>
-
-        <img id='keyboard_icon' src='keybd_closed.png' alt='Show keyboard shortcuts' />
-
-        <form id="filter_container">
-            <input id="filter" type="text" value="" placeholder="filter..." />
-        </form>
+        <img id='keyboard_icon' src='keybd_closed.png'>
     </div>
 </div>
 
 <div class='help_panel'>
-    <img id='panel_icon' src='keybd_open.png' alt='Hide keyboard shortcuts' />
+    <img id='panel_icon' src='keybd_open.png'>
     <p class='legend'>Hot-keys on this page</p>
     <div>
     <p class='keyhelp'>
@@ -62,45 +56,77 @@
         <tfoot>
             <tr class='total'>
                 <td class='name left'>Total</td>
-                <td>27</td>
-                <td>13</td>
+                <td>43</td>
+                <td>26</td>
                 <td>0</td>
                 
-                <td class='right' data-ratio='14 27'>52%</td>
+                <td class='right'>40%</td>
             </tr>
         </tfoot>
         <tbody>
             
             <tr class='file'>
-                <td class='name left'><a href='test1.html'>test1</a></td>
-                <td>23</td>
-                <td>12</td>
+                <td class='name left'><a href='src___init__.html'>src\__init__</a></td>
+                <td>0</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class='right' data-ratio='11 23'>48%</td>
+                <td class='right'>100%</td>
+            </tr>
+            
+            <tr class='file'>
+                <td class='name left'><a href='src_test3.html'>src\test3</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>0</td>
+                
+                <td class='right'>50%</td>
             </tr>
             
             <tr class='file'>
                 <td class='name left'><a href='test3.html'>test3</a></td>
                 <td>4</td>
-                <td>1</td>
+                <td>2</td>
                 <td>0</td>
                 
-                <td class='right' data-ratio='3 4'>75%</td>
+                <td class='right'>50%</td>
+            </tr>
+            
+            <tr class='file'>
+                <td class='name left'><a href='test_a.html'>test_a</a></td>
+                <td>13</td>
+                <td>8</td>
+                <td>0</td>
+                
+                <td class='right'>38%</td>
+            </tr>
+            
+            <tr class='file'>
+                <td class='name left'><a href='test_ab.html'>test_ab</a></td>
+                <td>11</td>
+                <td>7</td>
+                <td>0</td>
+                
+                <td class='right'>36%</td>
+            </tr>
+            
+            <tr class='file'>
+                <td class='name left'><a href='test_b.html'>test_b</a></td>
+                <td>11</td>
+                <td>7</td>
+                <td>0</td>
+                
+                <td class='right'>36%</td>
             </tr>
             
         </tbody>
     </table>
-
-    <p id="no_rows">
-        No items found using the specified filter.
-    </p>
 </div>
 
 <div id='footer'>
     <div class='content'>
         <p>
-            <a class='nav' href='http://nedbatchelder.com/code/coverage/4.0a2'>coverage.py v4.0a2</a>
+            <a class='nav' href='http://nedbatchelder.com/code/coverage'>coverage.py v3.7.1</a>
         </p>
     </div>
 </div>
