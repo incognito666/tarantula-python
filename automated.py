@@ -19,6 +19,8 @@ import fnmatch
 i=0
 res = []
 listmethod=['runA','runAB','runB']
+total_failed = 0
+score =[1,2,3]
 for file in os.listdir():
     if fnmatch.fnmatch(file, 'test_*.py'):
         print(file)
@@ -31,12 +33,15 @@ for file in os.listdir():
         funcName = getName(file)
 ##        result = getattr(mod, listmethod[i])()
         result = getattr(mod,funcName)()
+        score[i]=result
+##        total_failed = total_failed+result
         print("result :"+str(result))
         cov.stop()
-        ##print(res)
+##        print("score: "+str(score))
         res=cov.analysis('test3.py')
         print(res)
         i+=1
+print("score: "+str(score))
 ####        globals[f] = __import__(f)
 ##import 
 
@@ -80,34 +85,38 @@ for file in os.listdir():
 ##print(results2)
 ##
 ##calculate suspiciousness
-total_failed = score_a + score_b +score_ab
+
+##total_failed = score_a + score_b +score_ab
+for x in range(0,len(score)):
+    total_failed += score[x]
 total_tests = len(res)
 total_passed = total_tests - total_failed
 passed = 0
 
 print(total_failed)
 
-susp = res[0][1]
+susp = str(res[1])
+print(susp)
 i = 0
-for x in res[0][1]:
+for x in res[1]:
     failed_cases = 0
     passed=0
     # for runA
-    print(str(x))
-    if x not in results[2]:
-        if score_a == 1:
+##    print(str(x))
+    if x not in res[2]:
+        if score[0] == 1:
             failed_cases += 1
         else:
             passed+=1
 
-    if x not in results1[2]:
-        if score_b == 1:
+    if x not in res[2]:
+        if score[1] == 1:
             failed_cases += 1
         else:
             passed+=1
             
-    if x not in results2[2]:
-        if score_ab == 1:
+    if x not in res[2]:
+        if score[2] == 1:
             failed_cases += 1
         else:
             passed+=1
@@ -115,7 +124,7 @@ for x in res[0][1]:
     print("failed_cases" + str(failed_cases) + " for line "+str(x))
     print("passed" + str(passed) + " for line "+str(x))
     ##passed = total_passed - failed_cases
-    susp[i] = (failed_cases / total_failed ) / ((passed/total_passed)+(failed_cases / total_failed ))
+    susp[i] = str((failed_cases / total_failed ) / ((passed/total_passed)+(failed_cases / total_failed )))
     i+=1
 
 print(str(susp))
