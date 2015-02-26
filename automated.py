@@ -4,7 +4,8 @@ import subprocess
 from coverage import coverage
 
 def getName(filename):
-    f = open(filename)
+    fn = os.path.join('test',str(filename))
+    f = open(fn)
     contents = f.read()
     start = contents.find('def')
     end = contents.find('(',start)
@@ -18,15 +19,19 @@ i=0
 res = {}
 total_failed = 0
 score ={}#[1,2,3]
-for file in os.listdir():
+for file in os.listdir('test'):
     if fnmatch.fnmatch(file, 'test_*.py'):
-        print(file)
+        str_file = str(file)
+        print(str_file)
+        path = os.path.join(os.getcwd(),'test')
+        path = os.path.join(path,str_file)
         cov.erase()
         cov.start()
         f = file[:-3]
-        loader = importlib.machinery.SourceFileLoader('mmm', file)
+        loader = importlib.machinery.SourceFileLoader('mmm', path)
         mod = loader.load_module()
         funcName = getName(file)
+        print(mod)
         result = getattr(mod,funcName)()
         score[i]=result
         print("result :"+str(result))
