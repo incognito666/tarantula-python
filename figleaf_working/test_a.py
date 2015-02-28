@@ -5,11 +5,9 @@ import test3
 
 ##class DemoTest(unittest.TestCase):
 
-def  runA():
+def runA():
     print(os.getcwd())
     return test_a()
-
-
 
 
 def test_a():
@@ -20,6 +18,5 @@ def test_a():
         print("test_a screwed up!!")
         return 1
 
-
-
-
+if __name__ == "__main__":
+    runA()

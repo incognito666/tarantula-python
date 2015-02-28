@@ -1,11 +1,13 @@
 import os
-import importlib.machinery
+import importlib
 import subprocess
-from coverage import coverage
+from modulefinder import ModuleFinder
+import figleaf
+from importlib import import_module
+import imp
 
 def getName(filename):
-    fn = os.path.join('test',str(filename))
-    f = open(fn)
+    f = open(filename)
     contents = f.read()
     start = contents.find('def')
     end = contents.find('(',start)
@@ -13,30 +15,25 @@ def getName(filename):
     return contents[start+4:end]
 
     
-cov = coverage()
+##cov = coverage()
 import fnmatch
 i=0
 res = {}
 total_failed = 0
-score ={}#[1,2,3]
-for file in os.listdir('test'):
+score ={}
+for file in os.listdir('.'):
     if fnmatch.fnmatch(file, 'test_*.py'):
-        str_file = str(file)
-        print(str_file)
-        path = os.path.join(os.getcwd(),'test')
-        path = os.path.join(path,str_file)
-        cov.erase()
-        cov.start()
+        print(file)
+	figleaf.get_trace_obj();
+        figleaf.start()
         f = file[:-3]
-        loader = importlib.machinery.SourceFileLoader('mmm', path)
-        mod = loader.load_module()
+	mod=importlib.import_module(f)
         funcName = getName(file)
-        print(mod)
         result = getattr(mod,funcName)()
         score[i]=result
         print("result :"+str(result))
-        cov.stop()
-        res[i]=cov.analysis('test3.py')
+        figleaf.stop()
+        res[i]=figleaf.get_info('test3.py')
         print(res)
         i+=1
 print("score: "+str(score))
@@ -50,18 +47,17 @@ total_passed = total_tests - total_failed
 passed = 0
 
 print("total failed: "+str(total_failed))
-##susp=[]
-susp = res[0][1]
+susp = res[0]
 print("susp: "+str(susp))
-print("res1"+str(res[1][1]))
+print("res1"+str(res[1]))
 i = 0
-for x in res[1][1]:
+for x in res[1]:
     failed_cases = 0
     passed=0
     for y in range(0,total_tests):
         print("y is "+str(y))
-        print(res[y][2])
-        if x not in res[y][2]:
+        print(res[y])
+        if x not in res[y]:
             if score[y] == 1:
                 failed_cases+=1
             else:
