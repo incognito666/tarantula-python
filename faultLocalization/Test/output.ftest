@@ -1,0 +1,17 @@
+ --- modulename: Testrecurse, funcname: recurse
+Testrecurse.py(2):     print 'recurse(%s)' % level
+recurse(2)
+Testrecurse.py(3):     if level:
+Testrecurse.py(4):         recurse(level-1)
+ --- modulename: Testrecurse, funcname: recurse
+Testrecurse.py(2):     print 'recurse(%s)' % level
+recurse(1)
+Testrecurse.py(3):     if level:
+Testrecurse.py(4):         recurse(level-1)
+ --- modulename: Testrecurse, funcname: recurse
+Testrecurse.py(2):     print 'recurse(%s)' % level
+recurse(0)
+Testrecurse.py(3):     if level:
+Testrecurse.py(5):     return
+Testrecurse.py(5):     return
+Testrecurse.py(5):     return
