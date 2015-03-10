@@ -3,14 +3,24 @@ import importlib.machinery
 import subprocess
 from coverage import coverage
 
-def getName(filename):
+def getNames(filename):
+    names = []
     fn = os.path.join('test',str(filename))
+    print(fn)
     f = open(fn)
-    contents = f.read()
-    start = contents.find('def')
-    end = contents.find('(',start)
+    contents = f.readlines()
+    print("func read start :")
+    for line in contents:
+        if not (line.strip().startswith("#")):
+            start = line.find('def')
+            if start != -1:
+                end = line.find('(',start)
+                print(line)
+                names.append(line[start+4:end])
+                #return line[start+4:end]
     f.close()
-    return contents[start+4:end]
+    #print(line[start+4:end])
+    return names
 
     
 cov = coverage()
@@ -30,14 +40,17 @@ for file in os.listdir('test'):
         f = file[:-3]
         loader = importlib.machinery.SourceFileLoader('mmm', path)
         mod = loader.load_module()
-        funcName = getName(file)
-        print(mod)
-        result = getattr(mod,funcName)()
+        funcNames = getNames(file)
+        #print(mod)
+        for funcName in funcNames:
+            if funcName  != "":
+                print(funcName)
+                result = getattr(mod,funcName)()
         score[i]=result
         print("result :"+str(result))
         cov.stop()
         res[i]=cov.analysis('test3.py')
-        print(res)
+        print(res[i])
         i+=1
 print("score: "+str(score))
 print("res: "+str(res))
