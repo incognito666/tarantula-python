@@ -1,0 +1,11 @@
+ --- modulename: test_b, funcname: runB
+test_b.py(5):     return test_b()
+ --- modulename: test_b, funcname: test_b
+test_b.py(10):     try:
+test_b.py(11):         assert test3.b() == True
+ --- modulename: test3, funcname: b
+test3.py(5):     return False
+test_b.py(13):     except AssertionError:
+test_b.py(14):         print("test_b screwed up!!")
+test_b screwed up!!
+test_b.py(15):         return 1

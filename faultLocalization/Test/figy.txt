@@ -1,0 +1,58 @@
+test_ab.py
+result :0
+------------------------------------------------------------------------------------------------------------------------------------------------
+test_a.py
+/home/smruthi/tarantula-python/figleaf_working
+result :0
+------------------------------------------------------------------------------------------------------------------------------------------------
+test_b.py
+test_b screwed up!!
+result :1
+------------------------------------------------------------------------------------------------------------------------------------------------
+['/home/smruthi/tarantula-python/figleaf_working/test3.py', [1, 2, 4, 5], [], []]
+['/home/smruthi/tarantula-python/figleaf_working/test3.py', [1, 2, 4, 5], [1, 4, 5], [1, 4, 5]]
+['/home/smruthi/tarantula-python/figleaf_working/test3.py', [1, 2, 4, 5], [1, 2, 4], [1, 2, 4]]
+
+res: {0: ['/home/smruthi/tarantula-python/figleaf_working/test3.py', [1, 2, 4, 5], [], []], 1: ['/home/smruthi/tarantula-python/figleaf_working/test3.py', [1, 2, 4, 5], [1, 4, 5], [1, 4, 5]], 2: ['/home/smruthi/tarantula-python/figleaf_working/test3.py', [1, 2, 4, 5], [1, 2, 4], [1, 2, 4]]}
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Total tests: 3
+Total failed: 1
+susp: [1, 2, 4, 5]
+res1: 
+[1, 2, 4, 5]
+y is 0
+[]
+y is 1
+[1, 4, 5]
+y is 2
+[1, 2, 4]
+failed_cases: 0 for line 1
+passed: 1 for line 1
+division by zero!!!!
+y is 0
+[]
+y is 1
+[1, 4, 5]
+y is 2
+[1, 2, 4]
+failed_cases: 0 for line 2
+passed: 2 for line 2
+y is 0
+[]
+y is 1
+[1, 4, 5]
+y is 2
+[1, 2, 4]
+failed_cases: 0 for line 4
+passed: 1 for line 4
+division by zero!!!!
+y is 0
+[]
+y is 1
+[1, 4, 5]
+y is 2
+[1, 2, 4]
+failed_cases: 1 for line 5
+passed: 1 for line 5
+
+susp is: [1, 0, 4, 1]

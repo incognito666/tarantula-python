@@ -1,0 +1,10 @@
+ --- modulename: test_a, funcname: runA
+test_a.py(9):     print(os.getcwd())
+C:\Python27\Scripts\faultLocalization\Test
+test_a.py(10):     return test_a()
+ --- modulename: test_a, funcname: test_a
+test_a.py(16):     try:
+test_a.py(17):         assert test3.a() == True
+ --- modulename: test3, funcname: a
+test3.py(2):     return True
+test_a.py(18):         return 0

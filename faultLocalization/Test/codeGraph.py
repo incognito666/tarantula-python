@@ -1,16 +1,4 @@
-import trace
 import string, os, sys
-from test_b import runB
-
-outName = 'runB.ftest'
-file = open(outName, 'w')
-sys.stdout = file
-tracer = trace.Trace(count=False, trace=True)
-tracer.runfunc(runB)
-sys.stdout = sys.__stdout__
-
-
-
 
 class CodeGraph(object):
 	 def __init__(self, 

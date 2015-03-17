@@ -1,16 +1,4 @@
-import trace
 import string, os, sys
-from test_b import runB
-
-outName = 'runB.ftest'
-file = open(outName, 'w')
-sys.stdout = file
-tracer = trace.Trace(count=False, trace=True)
-tracer.runfunc(runB)
-sys.stdout = sys.__stdout__
-
-
-
 
 class CodeGraph(object):
 	 def __init__(self, 
@@ -37,7 +25,22 @@ class CodeGraph(object):
 		 print(self.funcNameArray)
 		 print(self.resultsArray)	 
 		 #return funcNameArray,resultsArray
+		 
+	 def dot_to_png(self):
+		 files = os.listdir(self.path)  
+		 for f in files:
+			 if f[-3:]=="dot": 
+				 inputname = os.path.realpath(f)
+				 outputname = inputname.replace(".dot", ".png")
+				 os.system('c:\Program Files (x86)\Graphviz\bin\dot.exe -Tpng "' + os.path.realpath(f) + '" -o "' + outputname + '"')
 			
+	 def dot_to_svg(self):
+		 files = os.listdir(self.path)  
+		 for f in files:
+			 if f[-3:]=="dot": 
+				 inputname = os.path.realpath(f)
+				 outputname = inputname.replace(".dot", ".svg")
+				 os.system('c:\Program Files (x86)\Graphviz\bin\dot.exe -Tsvg "' + os.path.realpath(f) + '" -o "' + outputname + '"')
 				
 			
 		 

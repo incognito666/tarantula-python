@@ -1,8 +1,0 @@
->>>>>> def recurse(level):
-    3:     print 'recurse(%s)' % level
-    3:     if level:
-    2:         recurse(level-1)
-    3:     return
-       
->>>>>> def not_called():
->>>>>>     print 'This function is never called.'
