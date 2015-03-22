@@ -1,8 +1,8 @@
 import unittest
 import test3
 
-def runAB():
-    return test_a_b()
+##def runAB():
+##    return test_a_b()
 
 def test_a_b():
     try:
