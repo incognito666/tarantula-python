@@ -104,20 +104,20 @@ for single_file in source_files:
         passed=0
         for y in range(0,total_tests):
             print("y is "+str(y))
-            print(res[y][single_file][2])
+##            print(res[y][single_file][2])
             if x not in res[y][single_file][2]:
                 if score[y] == 1:
                     failed_cases+=1
                 else:
-                    passed+=1
-                
-        print("failed_cases: " + str(failed_cases) + " for line "+str(x))
-        print("passed: " + str(passed) + " for line "+str(x))
-        ##passed = total_passed - failed_cases
-        if (passed/total_passed)==0 and (failed_cases/total_failed)==0 :
-            print("division by zero!!!!")
-        else :
-            susp[single_file][i] = (failed_cases / total_failed ) / ((passed/total_passed)+(failed_cases / total_failed ))
+                    passed+=1 
+            print("failed_cases: " + str(failed_cases) + " for line "+str(x))
+            print("passed: " + str(passed) + " for line "+str(x))
+            ##passed = total_passed - failed_cases
+            if (passed/total_passed)==0 and (failed_cases/total_failed)==0 :
+                print("division by zero!!!!")
+                susp[single_file][i] = -1
+            else :
+                susp[single_file][i] = (failed_cases / total_failed ) / ((passed/total_passed)+(failed_cases / total_failed ))
         i+=1
     
 
