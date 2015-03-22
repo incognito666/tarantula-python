@@ -15,20 +15,40 @@ import inspect
 ##dict_res is the dictionary with final_lists 
 ##############################################################################################################################################
 lines_executable=[]
-def getName(filename):
-    fexec = open(filename,"r")
-    lines_executable.append(figleaf.get_lines(fexec))
-    fexec.close()
-    f=open(filename)
-    contents = f.read()
+#def getName(filename):
+#    fexec = open(filename,"r")
+#    lines_executable.append(figleaf.get_lines(fexec))
+#    fexec.close()
+#    f=open(filename)
+#    contents = f.read()
     #lines_executable.append(figleaf.get_lines(f))
     #print "Lines executable:"
     #print str(lines_executable)
-    start = contents.find('def')
-    end = contents.find('(',start)
-    f.close()
-    return contents[start+4:end]
+#    start = contents.find('def')
+#    end = contents.find('(',start)
+#    f.close()
+#    return contents[start+4:end]
 import fnmatch
+
+def getNames(filename):
+    names = []
+    fn = os.path.join('test',str(filename))
+    print(fn)
+    f = open(fn)
+    contents = f.readlines()
+    print("func read start :")
+    for line in contents:
+        if not (line.strip().startswith("#")):
+            start = line.find('def')
+            if start != -1:
+                end = line.find('(',start)
+                print(line)
+                names.append(line[start+4:end])
+                #return line[start+4:end]
+    f.close()
+    #print(line[start+4:end])
+    return names
+
 i=0
 res = {}
 new_res={}
@@ -38,13 +58,16 @@ covered=[]
 for file in os.listdir('.'):
     if fnmatch.fnmatch(file, 'test_*.py'):
         print(file)
-	figleaf._t.c.clear()
+	figleaf._t.clear()
         figleaf.start()
         f = file[:-3]
 	mod=importlib.import_module(f)
-        funcName = getName(file)
-        result = getattr(mod,funcName)()
-        score[i]=result
+        funcNames = getNames(file)
+		for funcName in funcNames:
+			if funcName != "":
+				print(funcName)
+				result = getattr(mod,funcName)()        
+				score[i]=result
         print("result :"+str(result))
 	print("------------------------------------------------------------------------------------------------------------------------------------------------")
 #	print("\n")
