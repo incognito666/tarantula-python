@@ -100,6 +100,7 @@ def test_eq():
     ace_spades = pydealer.Card("Ace", "Spades")
     try:
         assert card==ace_spades
+##        unittest.TestCase.assertEqual(card,ace_spades,None)
         return 0
     except AssertionError:
         return 1
@@ -119,12 +120,16 @@ def test_eq():
 ##
 def test_ge():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     ace_spades = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
 
     try:
-        assert card>=ace_spades
-        assert card>=two_diamonds
+##        assert card>=ace_spades
+##        assert card>=two_diamonds
+        ace_spades_res = card.ge(ace_spades)
+        assert ace_spades_res == True
+        #unittestTestCase.assertGreaterEqual(card, two_diamonds,None)
         return 0
     except AssertionError:
         return 1
@@ -133,11 +138,12 @@ def test_ge():
 
 def test_ge_func():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     ace_spades = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
 
-    result_x = card.Card.ge(ace_spades)
-    result_y = card.Card.ge(two_diamonds)
+    result_x = card.ge(ace_spades)
+    result_y = card.ge(two_diamonds)
     try:
         assert result_x==True
         assert result_y==True
@@ -149,9 +155,11 @@ def test_ge_func():
 
 def test_gt():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
+    two_diamonds_res = card.gt(two_diamonds)
     try:
-        assert card>two_diamonds
+        assert two_diamonds_res
         return 0
     except AssertionError:
         return 1
@@ -159,6 +167,7 @@ def test_gt():
 
 def test_gt_func():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
 
     result = card.gt(two_diamonds)
@@ -171,6 +180,7 @@ def test_gt_func():
 
 def test_le():
     """"""
+    
     ace_spades = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
     try:
@@ -184,6 +194,7 @@ def test_le():
 
 def test_le_func():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     ace_spades = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
 
@@ -200,6 +211,7 @@ def test_le_func():
 
 def test_lt():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
     try:
 ##        assert card>=ace_spades
@@ -211,6 +223,7 @@ def test_lt():
 
 def test_lt_func():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
 
     result = card.lt(two_diamonds)
@@ -223,6 +236,7 @@ def test_lt_func():
 
 def test_ne():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
     try:
 ##        assert card=ace_spades
@@ -232,8 +246,9 @@ def test_ne():
         return 1
 ##    self.assertNotEqual(self.card, two_diamonds)
 
-def test_ne_func(self):
+def test_ne_func():
     """"""
+    card = pydealer.Card("Ace", "Spades")
     two_diamonds = pydealer.Card("2", "Diamonds")
 
     result = card.ne(two_diamonds)

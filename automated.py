@@ -62,11 +62,12 @@ for file in os.listdir('test'):
         score[i]=result
         print("result :"+str(result))
         cov.stop()
+        cov.html_report(directory = file)
         print("**************************")
         for single_file in source_files:
             all_files[single_file] = cov.analysis("src/"+single_file)
         res[i]=all_files
-        print(res[i])
+##        print(res[i])
         i+=1
 print("score: "+str(score))
 print("res: "+str(res))
@@ -99,11 +100,11 @@ for single_file in source_files:
     print(all_executable_lines[single_file])
     i = 0
     for x in all_executable_lines[single_file]: ## to get executable lines for that file
-        print("Exec line ",x)
+##        print("Exec line ",x)
         failed_cases = 0
         passed=0
         for y in range(0,total_tests):
-            print("y is "+str(y))
+##            print("y is "+str(y))
 ##            print(res[y][single_file][2])
             if x not in res[y][single_file][2]:
                 if score[y] == 1:
@@ -114,7 +115,7 @@ for single_file in source_files:
             print("passed: " + str(passed) + " for line "+str(x))
             ##passed = total_passed - failed_cases
             if (passed/total_passed)==0 and (failed_cases/total_failed)==0 :
-                print("division by zero!!!!")
+##                print("division by zero!!!!")
                 susp[single_file][i] = -1
             else :
                 susp[single_file][i] = (failed_cases / total_failed ) / ((passed/total_passed)+(failed_cases / total_failed ))
