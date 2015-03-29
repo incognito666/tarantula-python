@@ -6,7 +6,7 @@ import test3
 
 def test_a_b():
     try:
-        assert test3.b() == False and test3.a() == True
+        assert test3.b() == True and test3.a() == True
         return 0
     except AssertionError:
         print("test_a_b screwed up!!")

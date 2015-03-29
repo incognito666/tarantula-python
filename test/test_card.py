@@ -15,10 +15,10 @@ import sys
 import unittest
 p = os.path.join(os.getcwd(),'src')
 sys.path.insert(0,p)
-import card
+##import card
 
 import pydealer
-from card import *
+from pydealer import card
 #import src.*
 
 
@@ -35,11 +35,13 @@ def setUp():
 
 def test_card_abbrev():
     """"""
+##    card = pydealer.Card("Ace", "Spades")
     abbrev = card.card_abbrev("Ace", "Spades")
     try:
         assert abbrev=="AS"
         return 0
     except AssertionError:
+        print("abbrev screwed up")
         return 1
     #assertEqual(abbrev, "AS")
 
@@ -68,7 +70,7 @@ def test_suit():
     """"""
     card = pydealer.Card("Ace", "Spades")
     try:
-        assert card.suit=="Spades"
+        assert card.suit=="Spades" ###############
         return 0
     except AssertionError:
         return 1
