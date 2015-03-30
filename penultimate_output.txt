@@ -1,0 +1,102 @@
+
+Source files are:
+['test4.py', 'card.py', 'test3.py']
+
+Lines executable in each source file:
+{'test3.py': [1, 2, 4, 5], 'card.py': [257, 259, 277, 134, 136, 307, 395, 396, 322, 398, 144, 146, 275, 276, 21, 320, 154, 156, 288, 290, 164, 38, 308, 28, 274, 338, 306, 48, 49, 50, 51, 52, 181, 54, 183, 180, 190, 309, 192, 65, 194, 324, 182, 70, 225, 339, 372, 81, 210, 211, 212, 341, 86, 292, 348, 378, 350, 223, 97, 98, 227, 166, 209, 357, 109, 111, 241, 242, 243, 244, 373, 374, 375, 376, 340, 122, 123, 381, 255], 'test4.py': [1, 2, 3, 4, 5, 6, 7]}
+
+Running the tests
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Test file:test_ab.py
+
+
+test/test_ab.py
+func read start :
+def runAB():
+
+def test_a_b():
+
+Test def:runAB
+Test def:test_a_b
+------------------------------------------------------------------------------------------------------------------------------------------------
+Test file:test_a.py
+
+
+test/test_a.py
+func read start :
+def runA():
+
+def test_a():
+
+Test def:runA
+/home/smruthi/figgy
+Test def:test_a
+------------------------------------------------------------------------------------------------------------------------------------------------
+Test file:test_b.py
+
+
+test/test_b.py
+func read start :
+def runB():
+
+def test_b():
+
+Test def:runB
+test_b screwed up!!
+Test def:test_b
+test_b screwed up!!
+------------------------------------------------------------------------------------------------------------------------------------------------
+score: {0: 0, 1: 0, 2: 1}
+res:{0: {'test3.py': ['test3.py', [1, 2, 4, 5], [], []]}, 1: {'test3.py': ['test3.py', [2], [1, 4, 5], [1, 4, 5]]}, 2: {'test3.py': ['test3.py', [5], [1, 2, 4], [1, 2, 4]]}}
+
+
+*****************************************************************************************************************************************************************
+
+					Calculating the suspiciousness
+
+*****************************************************************************************************************************************************************
+Total tests: 3
+Total failed: 1
+
+
+Inital susp:{'test3.py': [1, 2, 4, 5]}
+For source file: test3.py
+All executable lines are: [1, 2, 4, 5]
+
+Exec line :1
+failed_cases: 0 for line 1
+passed: 1 for line 1
+failed_cases: 0 for line 1
+passed: 1 for line 1
+failed_cases: 0 for line 1
+passed: 1 for line 1
+
+Exec line :2
+failed_cases: 0 for line 2
+passed: 1 for line 2
+failed_cases: 0 for line 2
+passed: 2 for line 2
+failed_cases: 0 for line 2
+passed: 2 for line 2
+
+Exec line :4
+failed_cases: 0 for line 4
+passed: 1 for line 4
+failed_cases: 0 for line 4
+passed: 1 for line 4
+failed_cases: 0 for line 4
+passed: 1 for line 4
+
+Exec line :5
+failed_cases: 0 for line 5
+passed: 1 for line 5
+failed_cases: 0 for line 5
+passed: 1 for line 5
+failed_cases: 1 for line 5
+passed: 1 for line 5
+
+The suspicousness values are:
+{'test3.py': [-1, 0, -1, 1]}
+
+
+
