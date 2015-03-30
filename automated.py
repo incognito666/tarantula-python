@@ -4,6 +4,15 @@ import subprocess
 from coverage import coverage
 from pyh import *
 
+def getColor(value):
+    if value==0.0:
+        return 'green'
+    elif value==-1:
+        return '#C6BABA'  ##Light Gray
+    elif value==1.0:
+        return 'red'
+    else:
+        return 'yellow'
 
 def showSuspiciousness(files, susp):
     for single_file in files:
@@ -35,7 +44,7 @@ def showSuspiciousness(files, susp):
                 susp_value = susp[single_file][all_files[single_file][1].index(cnt)]
             except:
                 susp_value = -1
-            tr1=mytab2<<tr()
+            tr1=mytab2<<tr(bgcolor=getColor(susp_value))
             tr1<<td(cnt)+td(line)+td(susp_value)
             cnt+= 1
             line = f.readline()
