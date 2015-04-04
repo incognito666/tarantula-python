@@ -1,8 +1,8 @@
 import unittest
 import src.test3
 
-def runB():
-    return test_b()
+##def runB():
+##    return test_b()
 
 
 
