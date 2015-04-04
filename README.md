@@ -19,8 +19,11 @@ Project Report 1b
   * Developers need to know where certain unit tests fail in an efficient way and what pieces of the code are not being covered by the existing unit tests.  
   * Our system will help python developers do the following:  
       - Locate the most likely lines which caused any of the unit tests to fail using our python implementation of Tarantula.
-      - And point out lines of code which were not covered during the unit test
+      - And point out lines of code which were not covered during the unit test   
 
+####<b>Related Work</b>    
+The closest tool to what we our doing is Tarantula.[3]   
+Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C[5]. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement[6].
 
 #Methods
 
@@ -72,17 +75,50 @@ We imported the os and sys module and added the path of the src folder to the sy
 
 #Results
 
+After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and whoich lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).  
+
+Using these values, the developer using our tool can find out which tets cases she has missed. She can also find out which line of code is most likely the cause of failure for a test case.  
+
 #Discussion
+ 
+In the  implementation of both these techniques, the most important difference is in the versions of Python. Coverage.py operates on Python3 whereas figleaf runs on Python2.  
+
+We have seen that the coverage.py library is much better documented that figleaf.  
+
+An important function, clear() is not visible outside the library in figleaf, which made figleaf a lot more problematic to implement than coverage.py. Because of this, we are unable to execute our figleaf script as a Python program; we have to run figleaf on the script file too. This made the task of extracting the results of figleaf a very tedious one. 
+
+coverage.py script execution:   
+<code>python automated_coverage</code>
+
+figleaf script execution:   
+<code>figleaf automated_figleaf</code>
+
+We had to spend a lot more effort and time on figleaf than on coverage.py. 
+
+Figleaf does not allow us to get coverage values of individual files, that is, there is no analyis(filename) method which returns coverage statistics for that file. AN indirect approach had to be taken for this-gatherFiles() had to be used instead which data of all the files that have been touched.  
+
 
 #Conclusion
+
+During the course of our project, 
 
 #Future Work
 
 One possible improvement can be to get rid of the assumptions, that is, the folder structure can be dynamic and can be taken as an input from the developer. To find out whether a test case has failed or not without having to return a 0 or 1 explicitly. The front end can be improved too; at the moment we have implemented a very basic UI.  
+
+Another possible improvement can be to integrate the output of coverage and fault localization so that the developer can see in one place which lines have not been covered and which line caused a test case to fail.
 
 #References
 
 [1] http://arxiv.org/ftp/arxiv/papers/1201/1201.3985.pdf  "Fault Localization for Java Programs Using Probabilistic Program
 Dependence Graph" by A.Askarunisa, T. Manju and B. Giri Babu
 
-[2] http://spideruci.org/papers/jones05.pdf "Empirical Evaluation of the Tarantula Automatic Fault-Localization Technique", by James A. Jones and Mary Jean Harrold
+[2] http://en.wikipedia.org/wiki/Code_coverage
+
+[3] http://spideruci.org/papers/jones05.pdf "Empirical Evaluation of the Tarantula Automatic Fault-Localization Technique", by James A. Jones and Mary Jean Harrold
+
+[4] http://en.wikipedia.org/wiki/Code_coverage
+
+[5] http://bugassist.mpi-sws.org/
+
+[6] https://code.google.com/p/hawk-eye/
