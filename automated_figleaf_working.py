@@ -29,16 +29,9 @@ def getColor(value):
         return 'yellow'
 
 
-
-dict_bck={}
-def create_back_dict():
-			#print(row['first_name'],row['last_name'])
-	reader=csv.reader(open('dict.csv','rb'))
-	dict_bck=dict(x for x in reader)
                         #reader=csv.DictRea
 
 def showSuspiciousness(files, susp):
-	final_dict=create_back_dict()
 	for single_file in files:
 		i=0
 		if (1==1):
@@ -283,12 +276,6 @@ susp={}
 temp_dict=dict_dict
 #print dict_dict
 #print temp_dict
-w=open('dict.csv','wb')
-writer=csv.writer(w)
-for key,value in dict_dict.items():
-	writer.writerow([key,value])
-
-w.close()
 for single_file in abs_source_files:
 	#if single_file in dict_dict[0].keys():
     	susp[single_file] = dict_dict[0][single_file][1]
