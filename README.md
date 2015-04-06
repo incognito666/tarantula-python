@@ -5,49 +5,66 @@ Project Report 1b
 
 #Goals
 
- Our goal in this project is to create a tool that can help developers with unit testing. We want to make a tool like Tarantula (which is available for Ruby) in Python.
+ Our goal in this project is to create a tool that can help developers with unit testing. We want to make a tool like Tarantula (which is available for Ruby) in Python.  
  
-  * Implement a line coverage and fault localization tool in Python
-
-  * Our implementation of Tarantula in Python for Fault Localization
-
-  * Coverage.py and FigLeaf.py (our 2 techniques) are python code coverage libraries which we will integrate into our code coverage design.
+ * Our system will help python developers do the following:  
+      - Locate the most likely lines which caused any of the unit tests to fail using our python implementation of Tarantula.
+      - And point out lines of code which were not covered during the unit test 
 
 #Background
 
   * As a software product expands and becomes more complex with the addition of features and functionality, the chances of bugs and defects being introduced in the software increases. This poses a problem to the development and QA team to know how many lines of code are being covered by their unit tests and where certain failures are occuring, so as to prevent bug escapes which bring down the quality of the product.
-  * Developers need to know where certain unit tests fail in an efficient way and what pieces of the code are not being covered by the existing unit tests.  
-  * Our system will help python developers do the following:  
-      - Locate the most likely lines which caused any of the unit tests to fail using our python implementation of Tarantula.
-      - And point out lines of code which were not covered during the unit test   
+  * The former problem can be resolved by Code Coverage while the latter one by Fault Localization.
 
-####<b>Related Work</b>    
-The closest tool to what we our doing is Tarantula.[3]   
-Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C[5]. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement[6].
-
-#Methods
-
+## *Problem 1: How much of my code is actally tested ? Use Code Coverage.       
 <b>What is Code Coverage?  </b>
 
-The Wikipedia definition of code coverage  is "In computer science, code coverage is a measure used to describe the degree to which the source code of a program is tested by a particular test suite. A program with high code coverage has been more thoroughly tested and has a lower chance of containing software bugs than a program with low code coverage."  
+The Wikipedia definition of code coverage is "In computer science, code coverage is a measure used to describe the degree to which the source code of a program is tested by a particular test suite. A program with high code coverage has been more thoroughly tested and has a lower chance of containing software bugs than a program with low code coverage."  
 
 Finding out the coverage that a test suite/test case gives is very beneficial for a developer; she can find out which functions have not been tested, what conditions have not been tested very easily.  
 
-We are using coverage.py and figleaf.py, two Python libraries for code coverage and providing the coverage.  
+Code coverage can be of varying granularity for eg. Function coverage, Statement coverage, Branch coverage and Condition coverage  
+  - Function coverage: Has each function been covered ?  
+  - Statement coverage: Has each statement been covered ?  
+  - Branch coverage: Has each branch been covered (eg. if and else block) ?  
+  - Condition coverage: Has each condition in a conditional block been tested (eg. in if a==5 or b == 6, both conditions for a as well as b should be tested)?  
+ The complexity becomes higher from the start to the end of the above list. Most of the tools we refered are based on Branch coverage (with the exception of Coverage.py which also has a branch coverage mode).  
 
-<b>What is fault localization?</b>
 
-Fault localization is a process to find the location of faults. It determines the root cause of the failure. It identifies the causes of abnormal behaviour of a faulty program. It identifies exactly where the bugs are. (This definition has been taken from the paper "Fault Localization for Java Programs Using Probabilistic Program Dependence Graph" [1] )  
+In our project, we are using coverage.py and figleaf.py, two Python libraries for code coverage.  
 
-Tarantula is a tool developed in Ruby which performs fault localization.  
+## *Problem 2: What caused my test cases to fail ? Use Fault Localization.  
+
+  <b>What is fault localization?</b>
+
+  Fault localization is a process to find the location of faults. It determines the root cause of the failure. It identifies the causes of abnormal behaviour of a faulty program. It identifies exactly where the bugs are. (This definition has been taken from the paper "Fault Localization for Java Programs Using Probabilistic Program Dependence Graph" <sup>[1]</sup> ) 
+
+  Tarantula is a tool developed in Ruby which performs fault localization. 
+
+  * Developers need to know where certain unit tests fail in an efficient way and what pieces of the code are not being covered by the existing unit tests.  
+    
+
+####<b>Related Work</b>    
+The closest tool to what we our doing is Tarantula.<sup>[3]</sup>   
+Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C<sup>[5]</sup>. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement<sup>[6]</sup>.
+
+#Methods  
 
 <b>How to find who is the culprit?</b>
 
 Tarantula calculates the "suspiciousness" of a line based on the formula : 
 
-suspiciousness(e) = (failed(e)/total failed)/((passed(e)/total passed)+(failed(e)/total failed))
+suspiciousness(e) = (failed(e)/total failed) / ((passed(e)/total passed)+(failed(e)/total failed))  
 
-where 'e' denotes the line being checked.  
+where 'e' denotes the line being checked. 
+
+The suspiciousness value is a value between 0 and 1 for those lines that have been executed and -1 for those that have not.  
+Suspiciousness values and their meanings:  
+ -1 : The line was not executed and hence is not the cause for failure of the test case.  
+ 0 : The line was executed but it is not the cause of the test failure.  
+ 1 : This line is the most likely cause for the test to fail.  
+ 
+ A higher value denotes a higher probability of that line being the cause of failure for the test case.  
 
 Our "two techniques":  
 
@@ -75,9 +92,9 @@ We imported the os and sys module and added the path of the src folder to the sy
 
 #Results
 
-After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and whoich lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).  
+After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and which lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).  
 
-Using these values, the developer using our tool can find out which tets cases she has missed. She can also find out which line of code is most likely the cause of failure for a test case.  
+Using these values, the developer using our tool can find out which test cases she has missed. She can also find out which line of code is most likely the cause of failure for a test case.  
 
 #Discussion
  
