@@ -1,9 +1,11 @@
-import os
+import os, sys
 import importlib.machinery
 import subprocess
 from coverage import coverage
 from pyh import *
 import time
+from codeGraph import CodeGraph
+import trace
 
 def getColor(value):
     if value==0.0:
@@ -83,14 +85,19 @@ def getNames(filename):
     return names
 
    
-cov = coverage()    
+cov = coverage()
+codegraph = CodeGraph()  
+codegraph.path = os.getcwd() + '\\codeGraph'
 import fnmatch
 start_time = time.time() 
 i=0
 res = {} #to store the cov.analysis for each file in each test
 source_files,abs_source_files = getSourceFiles()
+for placeS in range(0,len(source_files)):
+    codegraph.sourcefiles.append(source_files[placeS])
 total_failed = 0
 score ={}
+countup = 0
 for file in os.listdir('test'):
     if fnmatch.fnmatch(file, 'test_*.py'):
         all_files = {}
@@ -102,10 +109,29 @@ for file in os.listdir('test'):
         f = file[:-3]
         loader = importlib.machinery.SourceFileLoader('mmm', path)
         mod = loader.load_module()
+        #print (mod)
         funcNames = getNames(file)
+        codegraph.sourcefiles.append(file)
         for funcName in funcNames:
             if funcName  != "":
                 result = getattr(mod,funcName)()
+                if not os.path.exists("codeGraph"):    
+                    os.mkdir('codeGraph')	
+                #codegraph.path = '.\codeGraph'
+                outName = f + '_-' + funcName + '.ftest'
+                cgn = os.path.join('codeGraph',outName)
+                tmp_pyfile = open('tmp.py', 'w')
+                tmp_pyfile.write("import trace \nfrom test." + f + " import " + funcName + ' \n\n\ntracer = trace.Trace(count=False, trace=True) \ntracer.runfunc(' + funcName + ") \n\n")
+                tmp_pyfile.close
+                codegraph.funcNameArray.append(funcName)
+                codegraph.resultsArray.append(result)
+                #cg_file = open(cgn, 'w')
+                #sys.sdtout = cg_file
+                #tracer = trace.Trace(count=False, trace=True)
+                #tracer.runfunc(mod.funcName())
+                os.system('C:\Python34\python.exe tmp.py > "' + os.path.abspath(cgn) +'"')
+                os.remove("tmp.py")
+                #sys.stdout = sys.__stdout__
         score[i]=result
         cov.stop()
         cov.html_report(directory = file)
@@ -113,11 +139,21 @@ for file in os.listdir('test'):
             all_files[single_file] = cov.analysis(single_file)
         res[i]=all_files
         i+=1
+print(res)
+print("\n\n\n\n")
+print(score)
 for x in range(0,len(score)):
     total_failed += score[x]
 total_tests = len(res)
 total_passed = total_tests - total_failed
 passed = 0
+
+print("\n\t\t\t\t\tCalculating the suspiciousness\n")
+print("*****************************************************************************************************************************************************************")
+print("Total tests: " + str(total_tests))
+print("Total failed: "+str(total_failed))
+print("Total passed: "+str(total_passed))
+print ("\n")
 
 ## to handle multiple src files, susp will now be a dict
 ## with key as filename in /src folder and value as it's susp value
@@ -135,13 +171,19 @@ for single_file in abs_source_files:
         passed=0
         for y in range(0,total_tests):
             if x not in res[y][single_file][2]:
+                print("Are we here when y = " + str(y))
                 if score[y] == 1:
+                    print("We hit failed test Case.")
                     failed_cases+=1
                 else:
                     passed+=1 
-            if (passed/total_passed)==0 and (failed_cases/total_failed)==0 :
+            if ((total_passed)==0 and (total_failed)==0):
                 susp[single_file][i] = -1
-            else :
+            elif total_passed == 0: 
+                susp[single_file][i] = (failed_cases / total_failed ) / ((0)+(failed_cases / total_failed ))
+            elif total_failed == 0 or failed_cases == 0: 
+                susp[single_file][i] = 0
+            else :                
                 susp[single_file][i] = (failed_cases / total_failed ) / ((passed/total_passed)+(failed_cases / total_failed ))
         i+=1
 
@@ -149,6 +191,8 @@ showSuspiciousness(abs_source_files, susp)
 print("suspiciousness is : ",str(susp))
     
 total_time = time.time() - start_time
+codegraph.traceToDotConversion()
+codegraph.dot_to_svg()
 
 print("Execution time: " + str(total_time) + " sec")
         

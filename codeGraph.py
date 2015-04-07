@@ -49,6 +49,7 @@ class CodeGraph(object):
 			
 		 
 	def traceToDotConversion(self):
+		print (self.funcNameArray)
 		for f in os.listdir(self.path): 
 			#print(self.path)
 			if f[-5:] == 'ftest':
@@ -62,13 +63,13 @@ class CodeGraph(object):
 				resultIndex = -1
 				for line in inputfile: 
 					subline = line[:4]
-					resultIndex = -1
+					#resultIndex = -1
 					if '---' in subline:					
 						funcIndex = line.find('funcname:')
 						#print (funcIndex)
 						funcName = line[funcIndex+10:-1]
 						#resultIndex = self.funcNameArray.index(funcName)
-						#print (funcName)
+						print (funcName)
 						modIndex = line.find('modulename:')
 						#print (funcIndex)
 						modName = line[modIndex+12:funcIndex-2]
@@ -76,6 +77,8 @@ class CodeGraph(object):
 						
 						if flow == 0:
 							resultIndex = self.funcNameArray.index(funcName)
+							print(self.resultsArray[resultIndex])
+							print("\n")
 							outline = '   ' + funcName
 							flow = 1
 						else:
@@ -83,6 +86,7 @@ class CodeGraph(object):
 							if self.resultsArray[resultIndex] == 0:
 								outline = outline + ' [color=green];\n'
 							elif self.resultsArray[resultIndex] == 1:
+								print("Seeing RED")
 								outline = outline + ' [color=red];\n'
 							else:
 								outline = outline + ' [color=orange];\n'

@@ -32,16 +32,16 @@ def getSourceFiles():
 def getNames(filename):
     names = []
     fn = os.path.join('test',str(filename))
-    print(fn)
+    #print(fn)
     f = open(fn)
     contents = f.readlines()
-    print("func read start :")
+    #print("func read start :")
     for line in contents:
         if not (line.strip().startswith("#")):
             start = line.find('def')
             if start != -1:
                 end = line.find('(',start)
-                print(line)
+                #print(line)
                 names.append(line[start+4:end])
     f.close()
     return names
@@ -87,6 +87,7 @@ for file in os.listdir('test'):
 		figleaf.start()
 		fnew = file[:-3]
 		mod=importlib.import_module(fnew)
+		print mod
 		
 		funcNames = getNames(file)
 		

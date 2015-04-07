@@ -5,7 +5,7 @@ Project Report 1b
 
 #Goals
 
- Our goal in this project is to create a tool that can help developers with unit testing. We want to make a tool like Tarantula (which is available for Ruby) in Python.  
+ Our goal in this project is to create a code coverage tool that can help developers with unit testing. We want to make a tool like Tarantula ( a fault localization tool that is designed and available for Ruby) in Python.  
  
  * Our system will help python developers do the following:  
       - Locate the most likely lines which caused any of the unit tests to fail using our python implementation of Tarantula.
@@ -76,7 +76,9 @@ These two are code coverage libraries in Python. We used each library and execut
 
 #Our Approach and Testing Procedure
 
-We pick up test files from the 'test' folder. Coverage/Figleaf is run on every test case in every file and their results collected. From the results of these, suspiciousness values are calculated for every source file in the 'src' folder. The lines of every source file (with line number) and the suspiciousness value of each line is displayed via HTML (pyh.html).  The results of coverage can be seen in the 'newhtmlcov' folder (index.html).  
+We pick up test files from the 'test' folder. Coverage/Figleaf is run on every test case in every file and their results collected. From the results of these, suspiciousness values are calculated for every source file in the 'src' folder. The lines of every source file (with line number) and the suspiciousness value of each line is displayed via HTML (pyh.html).  The results of coverage can be seen in the 'newhtmlcov' folder (index.html). We also create a code Graph via the library trace.py so that the developer can see the route their unit tests are taking to see if they are going down the right path. An example of this code graph can be seen below. 
+
+<img src="Code_Graph.png">
 
 This has been done for some sample test files that we created and also for one test file 'test_card.py' from a project 'pydealer' form github.  
 
@@ -92,15 +94,32 @@ We imported the os and sys module and added the path of the src folder to the sy
 
 #Results
 
-After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and which lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).  
+After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and which lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).Below is a screen shot of the HTML page produced
 
-Using these values, the developer using our tool can find out which test cases she has missed. She can also find out which line of code is most likely the cause of failure for a test case.  
+<img src="HTML_Screen_Shot.png">
+
+From the table shown below you can see that on the same test case environment it takes figleaf half the time to execute than while using coverage. This could be in part due to coverage touching files deeper down the stack than figleaf does which can be seen in the html files located in the repo under 'FinalTestRuns/Coverage/PyDealer/susp' and 'FinalTestRuns/figleaf/PyDealer/susp', where card is the only source file shown as having code covered in figleaf while coverage covers more of the source files in PyDealer. 
+
+| Trials              | Figleaf     | Coverage    |
+|---------------------|-------------|-------------|
+| 1                   | 2.315999985 | 5.129513025 |
+| 2                   | 2.351999998 | 5.151515007 |
+| 3                   | 2.414000034 | 5.328532934 |
+| 4                   | 2.315999985 | 5.106999874 |
+| 5                   | 2.327000141 | 5.096999884 |
+| 6                   | 2.318000078 | 5.107000113 |
+| 7                   | 2.335999966 | 5.11500001  |
+| 8                   | 2.325000048 | 5.089999914 |
+| 9                   | 2.34800005  | 5.104000092 |
+| Average Time in Sec | 2.339111143 | 5.136617872 |  
+
+Seeing that Coverage touches more lines of code through a deeper stack would be great for a developer who is performing an integration test of their code inside a larger system. But if they just want to quickly run through the functionality of their class or module figleaf would be the better choice. 
 
 #Discussion
  
-In the  implementation of both these techniques, the most important difference is in the versions of Python. Coverage.py operates on Python3 whereas figleaf runs on Python2.  
+In the  implementation of both these techniques, the most important difference is in the versions of Python. Figleaf.py operates only on Python2 whereas Coverage.py works on Python2 and Python3. 
 
-We have seen that the coverage.py library is much better documented that figleaf.  
+We have seen that the coverage.py library is much better documented than figleaf.  
 
 An important function, clear() is not visible outside the library in figleaf, which made figleaf a lot more problematic to implement than coverage.py. Because of this, we are unable to execute our figleaf script as a Python program; we have to run figleaf on the script file too. This made the task of extracting the results of figleaf a very tedious one. 
 

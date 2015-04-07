@@ -43,6 +43,7 @@ class CodeGraph(object):
 		 
 	 def traceToDotCoversion(self):
 		 files = os.listdir(self.path)
+		 print(self.sourcefiles)
 		 for f in files: 
 			 if f[-5:] == 'ftest':
 				outname = os.path.realpath(f).replace(".ftest", ".dot")
