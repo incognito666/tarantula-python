@@ -96,6 +96,7 @@ source_files,abs_source_files = getSourceFiles()
 for placeS in range(0,len(source_files)):
     codegraph.sourcefiles.append(source_files[placeS])
 total_failed = 0
+total_tests = 0
 score ={}
 countup = 0
 for file in os.listdir('test'):
@@ -105,46 +106,61 @@ for file in os.listdir('test'):
         path = os.path.join(os.getcwd(),'test')
         path = os.path.join(path,str_file)
         cov.erase()
-        cov.start()
+        ####cov.start()
         f = file[:-3]
         loader = importlib.machinery.SourceFileLoader('mmm', path)
         mod = loader.load_module()
         #print (mod)
         funcNames = getNames(file)
         codegraph.sourcefiles.append(file)
+        result = 0
+        print("result is --------------- ",result)
         for funcName in funcNames:
+            result = 0###
             if funcName  != "":
+                cov.erase() ###
+                cov.start() ###
                 result = getattr(mod,funcName)()
-                if not os.path.exists("codeGraph"):    
-                    os.mkdir('codeGraph')	
+                total_tests+= 1
+##                if not os.path.exists("codeGraph"):    
+##                    os.mkdir('codeGraph')	
                 #codegraph.path = '.\codeGraph'
-                outName = f + '_-' + funcName + '.ftest'
-                cgn = os.path.join('codeGraph',outName)
-                tmp_pyfile = open('tmp.py', 'w')
-                tmp_pyfile.write("import trace \nfrom test." + f + " import " + funcName + ' \n\n\ntracer = trace.Trace(count=False, trace=True) \ntracer.runfunc(' + funcName + ") \n\n")
-                tmp_pyfile.close
-                codegraph.funcNameArray.append(funcName)
-                codegraph.resultsArray.append(result)
+##                outName = f + '_-' + funcName + '.ftest'
+##                cgn = os.path.join('codeGraph',outName)
+##                tmp_pyfile = open('tmp.py', 'w')
+##                tmp_pyfile.write("import trace \nfrom test." + f + " import " + funcName + ' \n\n\ntracer = trace.Trace(count=False, trace=True) \ntracer.runfunc(' + funcName + ") \n\n")
+##                tmp_pyfile.close
+##                codegraph.funcNameArray.append(funcName)
+##                codegraph.resultsArray.append(result)
                 #cg_file = open(cgn, 'w')
                 #sys.sdtout = cg_file
                 #tracer = trace.Trace(count=False, trace=True)
                 #tracer.runfunc(mod.funcName())
-                os.system('C:\Python34\python.exe tmp.py > "' + os.path.abspath(cgn) +'"')
-                os.remove("tmp.py")
+##                os.system('C:\Python34\python.exe tmp.py > "' + os.path.abspath(cgn) +'"')
+##                os.remove("tmp.py")
                 #sys.stdout = sys.__stdout__
-        score[i]=result
-        cov.stop()
-        cov.html_report(directory = file)
-        for single_file in abs_source_files:
-            all_files[single_file] = cov.analysis(single_file)
-        res[i]=all_files
-        i+=1
+                score[i]=result
+                print("result is --------------- ",result)
+                cov.stop()
+                cov.html_report(directory = file)
+                for single_file in abs_source_files:
+                    all_files[single_file] = cov.analysis(single_file)
+                res[i]=all_files
+                i+=1
+####        score[i]=result
+####        print("result is --------------- ",result)
+####        cov.stop()
+####        cov.html_report(directory = file)
+####        for single_file in abs_source_files:
+####            all_files[single_file] = cov.analysis(single_file)
+####        res[i]=all_files
+####        i+=1
 print(res)
 print("\n\n\n\n")
 print(score)
 for x in range(0,len(score)):
     total_failed += score[x]
-total_tests = len(res)
+##total_tests = len(res)
 total_passed = total_tests - total_failed
 passed = 0
 
@@ -171,7 +187,7 @@ for single_file in abs_source_files:
         passed=0
         for y in range(0,total_tests):
             if x not in res[y][single_file][2]:
-                print("Are we here when y = " + str(y))
+##                print("Are we here when y = " + str(y))
                 if score[y] == 1:
                     print("We hit failed test Case.")
                     failed_cases+=1
@@ -191,8 +207,8 @@ showSuspiciousness(abs_source_files, susp)
 print("suspiciousness is : ",str(susp))
     
 total_time = time.time() - start_time
-codegraph.traceToDotConversion()
-codegraph.dot_to_svg()
+##codegraph.traceToDotConversion()
+##codegraph.dot_to_svg()
 
 print("Execution time: " + str(total_time) + " sec")
         
