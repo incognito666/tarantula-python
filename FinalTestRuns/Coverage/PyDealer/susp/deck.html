@@ -1,0 +1,999 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><title>src\deck.py</title>
+</head>
+<body><table border="3"><tr><th>Line Number</th>
+<th>Code</th>
+<th>Suspiciousness</th>
+</tr>
+<tr bgcolor="#C6BABA"><td>1</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>2</td>
+<td># PyDealer - Deck Class
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>3</td>
+<td>#-------------------------------------------------------------------------------
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>4</td>
+<td># Version: 1.4.0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>5</td>
+<td># Updated: 10-01-2015
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>6</td>
+<td># Author: Alex Crawford
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>7</td>
+<td># License: GPLv3
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>8</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>9</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>10</td>
+<td>"""
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>11</td>
+<td>This module contains the ``Deck`` class. Each ``Deck`` instance contains a full,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>12</td>
+<td>52 card French deck of playing cards upon instantiation. The ``Deck`` class is
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>13</td>
+<td>a subclass of the ``Stack`` class, with a few extra/differing methods.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>14</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>15</td>
+<td>"""
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>16</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>17</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>18</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>19</td>
+<td># Imports
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>20</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>21</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>22</td>
+<td>from collections import deque
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>23</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>24</td>
+<td>from pydealer.const import (
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>25</td>
+<td>    BOTTOM,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>26</td>
+<td>    DEFAULT_RANKS,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>27</td>
+<td>    TOP
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>28</td>
+<td>)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>29</td>
+<td>from pydealer.stack import Stack
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>30</td>
+<td>from pydealer.tools import build_cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>31</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>32</td>
+<td># Dirty little try/except, to make PyDealer work with Python 3.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>33</td>
+<td>try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>34</td>
+<td>    xrange
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>35</td>
+<td>except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>36</td>
+<td>    xrange = range
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>37</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>38</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>39</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>40</td>
+<td># Deck Class
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>41</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>42</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>43</td>
+<td>class Deck(Stack):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>44</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>45</td>
+<td>    The Deck class, representing the deck that the cards will be in. It is
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>46</td>
+<td>    a sublcass of Stack, sharing all of the same methods, in addition to a
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>47</td>
+<td>    couple of others you would expect a deck class to have.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>48</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>49</td>
+<td>    .. warning::
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>50</td>
+<td>        At the moment, adding Jokers may cause some (most) functions/methods
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>51</td>
+<td>        to throw errors.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>52</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>53</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>54</td>
+<td>        A list of cards to be the initial contents of the Deck. If provided,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>55</td>
+<td>        the deck will not automatically build a new deck. Can be a ``Stack``,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>56</td>
+<td>        ``Deck``, or ``list`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>57</td>
+<td>    :arg bool jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>58</td>
+<td>        Whether or not to include jokers in the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>59</td>
+<td>    :arg int num_jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>60</td>
+<td>        How many jokers to add to the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>61</td>
+<td>    :arg bool build:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>62</td>
+<td>        Whether or not to build the deck on instantiation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>63</td>
+<td>    :arg bool rebuild:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>64</td>
+<td>        Whether or not to rebuild the deck when it runs out of
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>65</td>
+<td>        cards due to dealing.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>66</td>
+<td>    :arg bool re_shuffle:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>67</td>
+<td>        Whether or not to shuffle the deck after rebuilding.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>68</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>69</td>
+<td>        The rank dict that will be referenced by the sorting
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>70</td>
+<td>        methods etc. Defaults to ``DEFAULT_RANKS``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>71</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>72</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>73</td>
+<td>    def __init__(self, **kwargs):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>74</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>75</td>
+<td>        Deck constructor method.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>76</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>77</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>78</td>
+<td>        self._cards = deque(kwargs.get("cards", []))
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>79</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>80</td>
+<td>        self.jokers = kwargs.get("jokers", False)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>81</td>
+<td>        self.num_jokers = kwargs.get("num_jokers", 0)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>82</td>
+<td>        self.rebuild = kwargs.get("rebuild", False)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>83</td>
+<td>        self.re_shuffle = kwargs.get("re_shuffle", False)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>84</td>
+<td>        self.ranks = kwargs.get("ranks", DEFAULT_RANKS)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>85</td>
+<td>        self.decks_used = 0
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>86</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>87</td>
+<td>        if kwargs.get("build", True):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>88</td>
+<td>            self.build()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>89</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>90</td>
+<td>    def __add__(self, other):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>91</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>92</td>
+<td>        Allows you to add (merge) decks together, with the ``+`` operand.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>93</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>94</td>
+<td>        :arg other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>95</td>
+<td>            The other Deck to add to the Deck. Can be a ``Stack`` or ``Deck``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>96</td>
+<td>            instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>97</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>98</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>99</td>
+<td>            A new Deck instance, with the combined cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>100</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>101</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>102</td>
+<td>        try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>103</td>
+<td>            new_deck = Deck(cards=(list(self.cards) + list(other.cards)),
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>104</td>
+<td>                build=False)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>105</td>
+<td>        except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>106</td>
+<td>            new_deck = Deck(cards=list(self.cards) + other, build=False)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>107</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>108</td>
+<td>        return new_deck
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>109</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>110</td>
+<td>    def __repr__(self):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>111</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>112</td>
+<td>        Returns a string representation of the ``Deck`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>113</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>114</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>115</td>
+<td>            A string representation of the Deck instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>116</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>117</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>118</td>
+<td>        return "Deck(cards=%r)" % (self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>119</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>120</td>
+<td>    def build(self, jokers=False, num_jokers=0):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>121</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>122</td>
+<td>        Builds a standard 52 card French deck of Card instances.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>123</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>124</td>
+<td>        :arg bool jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>125</td>
+<td>            Whether or not to include jokers in the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>126</td>
+<td>        :arg int num_jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>127</td>
+<td>            The number of jokers to include.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>128</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>129</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>130</td>
+<td>        jokers = jokers or self.jokers
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>131</td>
+<td>        num_jokers = num_jokers or self.num_jokers
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>132</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>133</td>
+<td>        self.decks_used += 1
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>134</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>135</td>
+<td>        self.cards += build_cards(jokers, num_jokers)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>136</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>137</td>
+<td>    def deal(self, num=1, rebuild=False, shuffle=False, end=TOP):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>138</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>139</td>
+<td>        Returns a list of cards, which are removed from the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>140</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>141</td>
+<td>        :arg int num:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>142</td>
+<td>            The number of cards to deal.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>143</td>
+<td>        :arg bool rebuild:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>144</td>
+<td>            Whether or not to rebuild the deck when cards run out.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>145</td>
+<td>        :arg bool shuffle:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>146</td>
+<td>            Whether or not to shuffle on rebuild.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>147</td>
+<td>        :arg str end:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>148</td>
+<td>            The end of the ``Stack`` to add the cards to. Can be ``TOP`` ("top")
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>149</td>
+<td>            or ``BOTTOM`` ("bottom").
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>150</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>151</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>152</td>
+<td>            A given number of cards from the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>153</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>154</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>155</td>
+<td>        _num = num
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>156</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>157</td>
+<td>        rebuild = rebuild or self.rebuild
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>158</td>
+<td>        re_shuffle = shuffle or self.re_shuffle
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>159</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>160</td>
+<td>        self_size = self.size
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>161</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>162</td>
+<td>        if rebuild or num <= self_size:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>163</td>
+<td>            dealt_cards = [None] * num
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>164</td>
+<td>        elif num > self_size:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>165</td>
+<td>            dealt_cards = [None] * self_size
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>166</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>167</td>
+<td>        while num > 0:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>168</td>
+<td>            ends = {TOP: self.cards.pop, BOTTOM: self.cards.popleft}
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>169</td>
+<td>            n = _num - num
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>170</td>
+<td>            try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>171</td>
+<td>                card = ends[end]()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>172</td>
+<td>                dealt_cards[n] = card
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>173</td>
+<td>                num -= 1
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>174</td>
+<td>            except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>175</td>
+<td>                if self.size == 0:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>176</td>
+<td>                    if rebuild:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>177</td>
+<td>                        self.build()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>178</td>
+<td>                        if re_shuffle:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>179</td>
+<td>                            self.shuffle()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>180</td>
+<td>                    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>181</td>
+<td>                        break
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>182</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>183</td>
+<td>        return Stack(cards=dealt_cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>184</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>185</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>186</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>187</td>
+<td># Helper Functions
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>188</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>189</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>190</td>
+<td>def convert_to_deck(stack):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>191</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>192</td>
+<td>    Convert a ``Stack`` to a ``Deck``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>193</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>194</td>
+<td>    :arg Stack stack:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>195</td>
+<td>        The ``Stack`` instance to convert.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>196</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>197</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>198</td>
+<td>    return Deck(list(stack.cards))</td>
+<td>0</td>
+</tr>
+</table>
+</body>
+</html>

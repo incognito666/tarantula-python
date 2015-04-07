@@ -1,0 +1,12 @@
+digraph { 
+   test_ge -> __init__ [color=green];
+   __init__ -> card_abbrev [color=green];
+   card_abbrev -> card_name [color=green];
+   card_name -> __init__ [color=green];
+   __init__ -> card_abbrev [color=green];
+   card_abbrev -> card_name [color=green];
+   card_name -> __init__ [color=green];
+   __init__ -> card_abbrev [color=green];
+   card_abbrev -> card_name [color=green];
+   card_name -> ge [color=green];
+}

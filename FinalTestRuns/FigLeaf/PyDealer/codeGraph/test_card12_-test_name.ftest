@@ -1,0 +1,20 @@
+ --- modulename: test_card11, funcname: test_eq
+test_card11.py(37):     ace_spades = pydealer.Card("Ace", "Spades")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card11.py(38):     try:
+test_card11.py(39):         assert card==ace_spades
+ --- modulename: card, funcname: __eq__
+card.py(65):             isinstance(other, Card) and self.value == other.value and
+test_card11.py(42):     except AssertionError:
+test_card11.py(43):         return 1

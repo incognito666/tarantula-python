@@ -1,0 +1,3564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><title>src\stack.py</title>
+</head>
+<body><table border="3"><tr><th>Line Number</th>
+<th>Code</th>
+<th>Suspiciousness</th>
+</tr>
+<tr bgcolor="#C6BABA"><td>1</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>2</td>
+<td># PyDealer - Stack Class
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>3</td>
+<td>#-------------------------------------------------------------------------------
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>4</td>
+<td># Version: 1.4.0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>5</td>
+<td># Updated: 10-01-2015
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>6</td>
+<td># Author: Alex Crawford
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>7</td>
+<td># License: GPLv3
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>8</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>9</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>10</td>
+<td>"""
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>11</td>
+<td>This module contains the ``Stack`` class, which is the backbone of the PyDealer
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>12</td>
+<td>package. A ``Stack`` is essentially just a generic "card container", with all of
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>13</td>
+<td>the methods users may need to work with the cards they contain. A ``Stack`` can
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>14</td>
+<td>be used as a hand, or a discard pile, etc.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>15</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>16</td>
+<td>"""
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>17</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>18</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>19</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>20</td>
+<td># Imports
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>21</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>22</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>23</td>
+<td>from collections import deque
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>24</td>
+<td>import random
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>25</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>26</td>
+<td>from pydealer.const import (
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>27</td>
+<td>    BOTTOM,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>28</td>
+<td>    DEFAULT_RANKS,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>29</td>
+<td>    TOP
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>30</td>
+<td>)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>31</td>
+<td>from pydealer.tools import (
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>32</td>
+<td>    check_sorted,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>33</td>
+<td>    check_term,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>34</td>
+<td>    find_card,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>35</td>
+<td>    open_cards,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>36</td>
+<td>    random_card,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>37</td>
+<td>    save_cards,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>38</td>
+<td>    sort_cards
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>39</td>
+<td>)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>40</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>41</td>
+<td># Dirty little try/except, to make PyDealer work with Python 3.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>42</td>
+<td>try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>43</td>
+<td>    xrange
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>44</td>
+<td>except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>45</td>
+<td>    xrange = range
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>46</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>47</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>48</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>49</td>
+<td># Stack Class
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>50</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>51</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>52</td>
+<td>class Stack(object):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>53</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>54</td>
+<td>    The Stack class, representing a collection of cards. This is the main
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>55</td>
+<td>    'card container' class, with methods for manipulating it's contents.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>56</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>57</td>
+<td>    :arg list cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>58</td>
+<td>        A list of cards to be the initial contents of the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>59</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>60</td>
+<td>        If ``sort=True``, The rank dict to reference for sorting.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>61</td>
+<td>        Defaults to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>62</td>
+<td>    :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>63</td>
+<td>        Whether or not to sort the stack upon instantiation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>64</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>65</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>66</td>
+<td>    def __init__(self, **kwargs):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>67</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>68</td>
+<td>        Stack constructor method.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>69</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>70</td>
+<td>        :arg list cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>71</td>
+<td>            A list of cards to be the initial contents of the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>72</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>73</td>
+<td>            If ``sort=True``, The rank dict to reference for sorting.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>74</td>
+<td>            Defaults to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>75</td>
+<td>        :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>76</td>
+<td>            Whether or not to sort the stack upon instantiation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>77</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>78</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>79</td>
+<td>        self._cards = deque(kwargs.get("cards", []))
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>80</td>
+<td>        self.ranks = kwargs.get("ranks", DEFAULT_RANKS)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>81</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>82</td>
+<td>        self._i = 0
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>83</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>84</td>
+<td>        if kwargs.get("sort"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>85</td>
+<td>            self.sort(self.ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>86</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>87</td>
+<td>    def __add__(self, other):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>88</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>89</td>
+<td>        Allows users to add (merge) Stack/Deck instances together, with the
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>90</td>
+<td>        ``+`` operand. You can also add a list of ``Card`` instances to a
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>91</td>
+<td>        Stack/Deck instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>92</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>93</td>
+<td>        :arg other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>94</td>
+<td>            The other ``Stack``, or ``Deck`` instance, or list of ``Card``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>95</td>
+<td>            instances to add to the ``Stack``/``Deck`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>96</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>97</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>98</td>
+<td>            A new ``Stack`` instance, with the combined cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>99</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>100</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>101</td>
+<td>        try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>102</td>
+<td>            new_stack = Stack(cards=(list(self.cards) + list(other.cards)))
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>103</td>
+<td>        except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>104</td>
+<td>            new_stack = Stack(cards=(list(self.cards) + other))
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>105</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>106</td>
+<td>        return new_stack
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>107</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>108</td>
+<td>    def __contains__(self, card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>109</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>110</td>
+<td>        Allows for Card instance (not value & suit) inclusion checks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>111</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>112</td>
+<td>        :arg Card card:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>113</td>
+<td>            The Card instance to check for.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>114</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>115</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>116</td>
+<td>            Whether or not the Card instance is in the Deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>117</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>118</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>119</td>
+<td>        return id(card) in [id(x) for x in self.cards]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>120</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>121</td>
+<td>    def __delitem__(self, indice):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>122</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>123</td>
+<td>        Allows for deletion of a Card instance, using del.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>124</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>125</td>
+<td>        :arg int indice:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>126</td>
+<td>            The indice to delete.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>127</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>128</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>129</td>
+<td>        del self.cards[indice]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>130</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>131</td>
+<td>    def __eq__(self, other):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>132</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>133</td>
+<td>        Allows for Stack comparisons. Checks to see if the given ``other``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>134</td>
+<td>        contains the same cards, in the same order (based on value & suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>135</td>
+<td>        not instance).
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>136</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>137</td>
+<td>        :arg other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>138</td>
+<td>            The other ``Stack``/``Deck`` instance or ``list`` to compare to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>139</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>140</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>141</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>142</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>143</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>144</td>
+<td>        if len(self.cards) == len(other):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>145</td>
+<td>            for i, card in enumerate(self.cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>146</td>
+<td>                if card != other[i]:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>147</td>
+<td>                    return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>148</td>
+<td>            return True
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>149</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>150</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>151</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>152</td>
+<td>    def __getitem__(self, key):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>153</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>154</td>
+<td>        Allows for accessing, and slicing of cards, using ``Deck[indice]``,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>155</td>
+<td>        ``Deck[start:stop]``, etc.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>156</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>157</td>
+<td>        :arg int indice:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>158</td>
+<td>            The indice to get.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>159</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>160</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>161</td>
+<td>            The ``Card`` at the given indice.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>162</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>163</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>164</td>
+<td>        self_len = len(self)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>165</td>
+<td>        if isinstance(key, slice):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>166</td>
+<td>            return [self[i] for i in xrange(*key.indices(self_len))]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>167</td>
+<td>        elif isinstance(key, int):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>168</td>
+<td>            if key < 0 :
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>169</td>
+<td>                key += self_len
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>170</td>
+<td>            if key >= self_len:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>171</td>
+<td>                raise IndexError("The index ({}) is out of range.".format(key))
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>172</td>
+<td>            return self.cards[key]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>173</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>174</td>
+<td>            raise TypeError("Invalid argument type.")
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>175</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>176</td>
+<td>    def __len__(self):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>177</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>178</td>
+<td>        Allows check the Stack length, with len.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>179</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>180</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>181</td>
+<td>            The length of the stack (self.cards).
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>182</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>183</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>184</td>
+<td>        return len(self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>185</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>186</td>
+<td>    def __ne__(self, other):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>187</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>188</td>
+<td>        Allows for Stack comparisons. Checks to see if the given ``other``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>189</td>
+<td>        does not contain the same cards, in the same order (based on value &
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>190</td>
+<td>        suit, not instance).
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>191</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>192</td>
+<td>        :arg other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>193</td>
+<td>            The other ``Stack``/``Deck`` instance or ``list`` to compare to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>194</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>195</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>196</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>197</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>198</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>199</td>
+<td>        if len(self.cards) == len(other):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>200</td>
+<td>            for i, card in enumerate(self.cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>201</td>
+<td>                if card != other[i]:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>202</td>
+<td>                    return True
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>203</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>204</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>205</td>
+<td>            return True
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>206</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>207</td>
+<td>    def __repr__(self):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>208</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>209</td>
+<td>        The repr magic method.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>210</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>211</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>212</td>
+<td>            A representation of the ``Deck`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>213</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>214</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>215</td>
+<td>        return "Stack(cards=%r)" % (self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>216</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>217</td>
+<td>    def __setitem__(self, indice, value):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>218</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>219</td>
+<td>        Assign cards to specific stack indices, like a list.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>220</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>221</td>
+<td>        Example:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>222</td>
+<td>            stack[16] = card_object
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>223</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>224</td>
+<td>        :arg int indice:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>225</td>
+<td>            The indice to set.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>226</td>
+<td>        :arg Card value:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>227</td>
+<td>            The Card to set the indice to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>228</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>229</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>230</td>
+<td>        self.cards[indice] = value
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>231</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>232</td>
+<td>    def __str__(self):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>233</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>234</td>
+<td>        Allows users to print a human readable representation of the ``Stack``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>235</td>
+<td>        instance, using ``print``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>236</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>237</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>238</td>
+<td>            A str of the names of the cards in the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>239</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>240</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>241</td>
+<td>        card_names = "".join([x.name + "\n" for x in self.cards]).rstrip("\n")
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>242</td>
+<td>        return "%s" % (card_names)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>243</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>244</td>
+<td>    def add(self, cards, end=TOP):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>245</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>246</td>
+<td>        Adds the given list of ``Card`` instances to the top of the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>247</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>248</td>
+<td>        :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>249</td>
+<td>            The cards to add to the ``Stack``. Can be a single ``Card``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>250</td>
+<td>            instance, or a ``list`` of cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>251</td>
+<td>        :arg str end:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>252</td>
+<td>            The end of the ``Stack`` to add the cards to. Can be ``TOP`` ("top")
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>253</td>
+<td>            or ``BOTTOM`` ("bottom").
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>254</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>255</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>256</td>
+<td>        if end is TOP:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>257</td>
+<td>            try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>258</td>
+<td>                self.cards += cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>259</td>
+<td>            except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>260</td>
+<td>                self.cards += [cards]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>261</td>
+<td>        elif end is BOTTOM:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>262</td>
+<td>            try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>263</td>
+<td>                self.cards.extendleft(cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>264</td>
+<td>            except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>265</td>
+<td>                self.cards.extendleft([cards])
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>266</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>267</td>
+<td>    @property
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>268</td>
+<td>    def cards(self):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>269</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>270</td>
+<td>        The cards property.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>271</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>272</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>273</td>
+<td>            The cards in the Stack/Deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>274</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>275</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>276</td>
+<td>        return self._cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>277</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>278</td>
+<td>    @cards.setter
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>279</td>
+<td>    def cards(self, items):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>280</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>281</td>
+<td>        The cards property setter. This makes sure that if ``Stack.cards`` is
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>282</td>
+<td>        set directly, that the items are in a deque.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>283</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>284</td>
+<td>        :arg items:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>285</td>
+<td>            The list of Card instances, or a Stack/Deck instance to assign to
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>286</td>
+<td>            the Stack/Deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>287</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>288</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>289</td>
+<td>        self._cards = deque(items)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>290</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>291</td>
+<td>    def deal(self, num=1, end=TOP):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>292</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>293</td>
+<td>        Returns a list of cards, which are removed from the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>294</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>295</td>
+<td>        :arg int num:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>296</td>
+<td>            The number of cards to deal.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>297</td>
+<td>        :arg str end:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>298</td>
+<td>            Which end to deal from. Can be ``0`` (top) or ``1`` (bottom).
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>299</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>300</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>301</td>
+<td>            The given number of cards from the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>302</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>303</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>304</td>
+<td>        ends = {TOP: self.cards.pop, BOTTOM: self.cards.popleft}
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>305</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>306</td>
+<td>        self_size = self.size
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>307</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>308</td>
+<td>        if num <= self_size:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>309</td>
+<td>            dealt_cards = [None] * num
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>310</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>311</td>
+<td>            num = self_size
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>312</td>
+<td>            dealt_cards = [None] * self_size
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>313</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>314</td>
+<td>        if self_size:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>315</td>
+<td>            for n in xrange(num):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>316</td>
+<td>                try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>317</td>
+<td>                    card = ends[end]()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>318</td>
+<td>                    dealt_cards[n] = card
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>319</td>
+<td>                except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>320</td>
+<td>                    break
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>321</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>322</td>
+<td>            return Stack(cards=dealt_cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>323</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>324</td>
+<td>            return Stack()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>325</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>326</td>
+<td>    def empty(self, return_cards=False):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>327</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>328</td>
+<td>        Empties the stack, removing all cards from it, and returns them.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>329</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>330</td>
+<td>        :arg bool return_cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>331</td>
+<td>            Whether or not to return the cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>332</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>333</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>334</td>
+<td>            If ``return_cards=True``, a list containing the cards removed
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>335</td>
+<td>            from the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>336</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>337</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>338</td>
+<td>        cards = list(self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>339</td>
+<td>        self.cards = []
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>340</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>341</td>
+<td>        if return_cards:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>342</td>
+<td>            return cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>343</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>344</td>
+<td>    def find(self, term, limit=0, sort=False, ranks=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>345</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>346</td>
+<td>        Searches the stack for cards with a value, suit, name, or
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>347</td>
+<td>        abbreviation matching the given argument, 'term'.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>348</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>349</td>
+<td>        :arg str term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>350</td>
+<td>            The search term. Can be a card full name, value, suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>351</td>
+<td>            or abbreviation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>352</td>
+<td>        :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>353</td>
+<td>            The number of items to retrieve for each term. ``0`` equals
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>354</td>
+<td>            no limit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>355</td>
+<td>        :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>356</td>
+<td>            Whether or not to sort the results.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>357</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>358</td>
+<td>            The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>359</td>
+<td>            default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>360</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>361</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>362</td>
+<td>            A list of stack indices for the cards matching the given terms,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>363</td>
+<td>            if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>364</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>365</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>366</td>
+<td>        ranks = ranks or self.ranks
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>367</td>
+<td>        found_indices = []
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>368</td>
+<td>        count = 0
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>369</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>370</td>
+<td>        if not limit:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>371</td>
+<td>            for i, card in enumerate(self.cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>372</td>
+<td>                if check_term(card, term):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>373</td>
+<td>                    found_indices.append(i)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>374</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>375</td>
+<td>            for i, card in enumerate(self.cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>376</td>
+<td>                if count < limit:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>377</td>
+<td>                    if check_term(card, term):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>378</td>
+<td>                        found_indices.append(i)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>379</td>
+<td>                        count += 1
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>380</td>
+<td>                else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>381</td>
+<td>                    break
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>382</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>383</td>
+<td>        if sort:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>384</td>
+<td>            found_indices = sort_card_indices(self, found_indices, ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>385</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>386</td>
+<td>        return found_indices
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>387</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>388</td>
+<td>    def find_list(self, terms, limit=0, sort=False, ranks=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>389</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>390</td>
+<td>        Searches the stack for cards with a value, suit, name, or
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>391</td>
+<td>        abbreviation matching the given argument, 'terms'.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>392</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>393</td>
+<td>        :arg list terms:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>394</td>
+<td>            The search terms. Can be card full names, suits, values,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>395</td>
+<td>            or abbreviations.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>396</td>
+<td>        :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>397</td>
+<td>            The number of items to retrieve for each term.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>398</td>
+<td>        :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>399</td>
+<td>            Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>400</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>401</td>
+<td>            The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>402</td>
+<td>            default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>403</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>404</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>405</td>
+<td>            A list of stack indices for the cards matching the given terms,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>406</td>
+<td>            if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>407</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>408</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>409</td>
+<td>        ranks = ranks or self.ranks
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>410</td>
+<td>        found_indices = []
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>411</td>
+<td>        count = 0
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>412</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>413</td>
+<td>        if not limit:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>414</td>
+<td>            for term in terms:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>415</td>
+<td>                for i, card in enumerate(self.cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>416</td>
+<td>                    if check_term(card, term) and i not in found_indices:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>417</td>
+<td>                        found_indices.append(i)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>418</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>419</td>
+<td>            for term in terms:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>420</td>
+<td>                for i, card in enumerate(self.cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>421</td>
+<td>                    if count < limit:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>422</td>
+<td>                        if check_term(card, term) and i not in found_indices:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>423</td>
+<td>                            found_indices.append(i)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>424</td>
+<td>                            count += 1
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>425</td>
+<td>                    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>426</td>
+<td>                        break
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>427</td>
+<td>                count = 0
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>428</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>429</td>
+<td>        if sort:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>430</td>
+<td>            found_indices = sort_card_indices(self, found_indices, ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>431</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>432</td>
+<td>        return found_indices
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>433</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>434</td>
+<td>    def get(self, term, limit=0, sort=False, ranks=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>435</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>436</td>
+<td>        Get the specified card from the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>437</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>438</td>
+<td>        :arg term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>439</td>
+<td>            The search term. Can be a card full name, value, suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>440</td>
+<td>            abbreviation, or stack indice.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>441</td>
+<td>        :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>442</td>
+<td>            The number of items to retrieve for each term.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>443</td>
+<td>        :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>444</td>
+<td>            Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>445</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>446</td>
+<td>            The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>447</td>
+<td>            default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>448</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>449</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>450</td>
+<td>            A list of the specified cards, if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>451</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>452</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>453</td>
+<td>        ranks = ranks or self.ranks
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>454</td>
+<td>        got_cards = []
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>455</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>456</td>
+<td>        try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>457</td>
+<td>            indices = self.find(term, limit=limit)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>458</td>
+<td>            got_cards = [self.cards[i] for i in indices]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>459</td>
+<td>            self.cards = [v for i, v in enumerate(self.cards) if
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>460</td>
+<td>                i not in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>461</td>
+<td>        except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>462</td>
+<td>            got_cards = [self.cards[term]]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>463</td>
+<td>            self.cards = [v for i, v in enumerate(self.cards) if i is not term]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>464</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>465</td>
+<td>        if sort:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>466</td>
+<td>            got_cards = sort_cards(got_cards, ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>467</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>468</td>
+<td>        return got_cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>469</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>470</td>
+<td>    def get_list(self, terms, limit=0, sort=False, ranks=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>471</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>472</td>
+<td>        Get the specified cards from the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>473</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>474</td>
+<td>        :arg term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>475</td>
+<td>            The search term. Can be a card full name, value, suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>476</td>
+<td>            abbreviation, or stack indice.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>477</td>
+<td>        :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>478</td>
+<td>            The number of items to retrieve for each term.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>479</td>
+<td>        :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>480</td>
+<td>            Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>481</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>482</td>
+<td>            The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>483</td>
+<td>            default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>484</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>485</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>486</td>
+<td>            A list of the specified cards, if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>487</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>488</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>489</td>
+<td>        ranks = ranks or self.ranks
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>490</td>
+<td>        got_cards = []
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>491</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>492</td>
+<td>        try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>493</td>
+<td>            indices = self.find_list(terms, limit=limit)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>494</td>
+<td>            got_cards = [self.cards[i] for i in indices if self.cards[i]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>495</td>
+<td>                not in got_cards]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>496</td>
+<td>            self.cards = [v for i, v in enumerate(self.cards) if
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>497</td>
+<td>                i not in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>498</td>
+<td>        except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>499</td>
+<td>            indices = []
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>500</td>
+<td>            for item in terms:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>501</td>
+<td>                try:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>502</td>
+<td>                    card = self.cards[item]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>503</td>
+<td>                    if card not in got_cards:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>504</td>
+<td>                        got_cards.append(card)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>505</td>
+<td>                        indices.append(item)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>506</td>
+<td>                except:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>507</td>
+<td>                    indices += self.find(item, limit=limit)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>508</td>
+<td>                    got_cards += [self.cards[i] for i in indices if
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>509</td>
+<td>                        self.cards[i] not in got_cards]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>510</td>
+<td>            self.cards = [v for i, v in enumerate(self.cards) if
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>511</td>
+<td>                i not in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>512</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>513</td>
+<td>        if sort:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>514</td>
+<td>            got_cards = sort_cards(got_cards, ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>515</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>516</td>
+<td>        return got_cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>517</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>518</td>
+<td>    def insert(self, card, indice=-1):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>519</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>520</td>
+<td>        Insert a given card into the stack at a given indice.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>521</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>522</td>
+<td>        :arg Card card:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>523</td>
+<td>            The card to insert into the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>524</td>
+<td>        :arg int indice:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>525</td>
+<td>            Where to insert the given card.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>526</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>527</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>528</td>
+<td>        self_size = len(self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>529</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>530</td>
+<td>        if indice in [0, -1]:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>531</td>
+<td>            if indice == -1:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>532</td>
+<td>                self.cards.append(card)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>533</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>534</td>
+<td>                self.cards.appendleft(card)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>535</td>
+<td>        elif indice != self_size:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>536</td>
+<td>            half_x, half_y = self.split(indice)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>537</td>
+<td>            self.cards = list(half_x.cards) + [card] + list(half_y.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>538</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>539</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>540</td>
+<td>    def insert_list(self, cards, indice=-1):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>541</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>542</td>
+<td>        Insert a list of given cards into the stack at a given indice.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>543</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>544</td>
+<td>        :arg list cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>545</td>
+<td>            The list of cards to insert into the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>546</td>
+<td>        :arg int indice:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>547</td>
+<td>            Where to insert the given cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>548</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>549</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>550</td>
+<td>        self_size = len(self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>551</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>552</td>
+<td>        if indice in [0, -1]:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>553</td>
+<td>            if indice == -1:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>554</td>
+<td>                self.cards += cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>555</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>556</td>
+<td>                self.cards.extendleft(cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>557</td>
+<td>        elif indice != self_size:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>558</td>
+<td>            half_x, half_y = self.split(indice)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>559</td>
+<td>            self.cards = list(half_x.cards) + list(cards) + list(half_y.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>560</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>561</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>562</td>
+<td>    def is_sorted(self, ranks=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>563</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>564</td>
+<td>        Checks whether the stack is sorted.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>565</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>566</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>567</td>
+<td>            The rank dict to reference for checking. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>568</td>
+<td>            default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>569</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>570</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>571</td>
+<td>            Whether or not the cards are sorted.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>572</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>573</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>574</td>
+<td>        ranks = ranks or self.ranks
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>575</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>576</td>
+<td>        return check_sorted(self, ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>577</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>578</td>
+<td>    def open_cards(self, filename=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>579</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>580</td>
+<td>        Open cards from a txt file.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>581</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>582</td>
+<td>        :arg str filename:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>583</td>
+<td>            The filename of the deck file to open. If no filename given,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>584</td>
+<td>            defaults to "cards-YYYYMMDD.txt", where "YYYYMMDD" is the year,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>585</td>
+<td>            month, and day. For example, "cards-20140711.txt".
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>586</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>587</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>588</td>
+<td>        self.cards = open_cards(filename)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>589</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>590</td>
+<td>    def random_card(self, remove=False):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>591</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>592</td>
+<td>        Returns a random card from the Stack. If ``remove=True``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>593</td>
+<td>        also remove the card from the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>594</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>595</td>
+<td>        :arg bool remove:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>596</td>
+<td>            Whether or not to remove the card from the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>597</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>598</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>599</td>
+<td>            A random Card object, from the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>600</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>601</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>602</td>
+<td>        return random_card(self, remove)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>603</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>604</td>
+<td>    def reverse(self):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>605</td>
+<td>        """Reverse the order of the Stack in place."""
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>606</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>607</td>
+<td>        self.cards = self[::-1]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>608</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>609</td>
+<td>    def save_cards(self, filename=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>610</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>611</td>
+<td>        Save the current stack contents, in plain text, to a txt file.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>612</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>613</td>
+<td>        :arg str filename:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>614</td>
+<td>            The filename to use for the file. If no filename given, defaults
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>615</td>
+<td>            to "cards-YYYYMMDD.txt", where "YYYYMMDD" is the year, month, and
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>616</td>
+<td>            day. For example, "cards-20140711.txt".
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>617</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>618</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>619</td>
+<td>        save_cards(self, filename)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>620</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>621</td>
+<td>    def set_cards(self, cards):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>622</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>623</td>
+<td>        Change the Deck's current contents to the given cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>624</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>625</td>
+<td>        :arg list cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>626</td>
+<td>            The Cards to assign to the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>627</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>628</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>629</td>
+<td>        self.cards = cards
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>630</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>631</td>
+<td>    def shuffle(self, times=1):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>632</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>633</td>
+<td>        Shuffles the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>634</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>635</td>
+<td>        .. note::
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>636</td>
+<td>            Shuffling large numbers of cards (100,000+) may take a while.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>637</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>638</td>
+<td>        :arg int times:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>639</td>
+<td>            The number of times to shuffle.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>640</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>641</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>642</td>
+<td>        for _ in xrange(times):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>643</td>
+<td>            random.shuffle(self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>644</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>645</td>
+<td>    @property
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>646</td>
+<td>    def size(self):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>647</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>648</td>
+<td>        Counts the number of cards currently in the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>649</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>650</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>651</td>
+<td>            The number of cards in the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>652</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>653</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>654</td>
+<td>        return len(self.cards)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>655</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>656</td>
+<td>    def sort(self, ranks=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>657</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>658</td>
+<td>        Sorts the stack, either by poker ranks, or big two ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>659</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>660</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>661</td>
+<td>            The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>662</td>
+<td>            default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>663</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>664</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>665</td>
+<td>            The sorted cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>666</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>667</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>668</td>
+<td>        ranks = ranks or self.ranks
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>669</td>
+<td>        self.cards = sort_cards(self.cards, ranks)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>670</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>671</td>
+<td>    def split(self, indice=None):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>672</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>673</td>
+<td>        Splits the Stack, either in half, or at the given indice, into two
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>674</td>
+<td>        separate Stacks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>675</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>676</td>
+<td>        :arg int indice:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>677</td>
+<td>            Optional. The indice to split the Stack at. Defaults to the middle
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>678</td>
+<td>            of the ``Stack``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>679</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>680</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>681</td>
+<td>            The two parts of the Stack, as separate Stack instances.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>682</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>683</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>684</td>
+<td>        self_size = self.size
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>685</td>
+<td>        if self_size > 1:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>686</td>
+<td>            if not indice:
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>687</td>
+<td>                mid = self_size // 2
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>688</td>
+<td>                return Stack(cards=self[0:mid]), Stack(cards=self[mid::])
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>689</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>690</td>
+<td>                return Stack(cards=self[0:indice]), Stack(cards=self[indice::])
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>691</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>692</td>
+<td>            return Stack(cards=self.cards), Stack()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>693</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>694</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>695</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>696</td>
+<td># Helper Functions
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>697</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>698</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>699</td>
+<td>def convert_to_stack(deck):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>700</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>701</td>
+<td>    Convert a ``Deck`` to a ``Stack``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>702</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>703</td>
+<td>    :arg Deck deck:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>704</td>
+<td>        The ``Deck`` to convert.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>705</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>706</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>707</td>
+<td>        A new ``Stack`` instance, containing the cards from the given ``Deck``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>708</td>
+<td>        instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>709</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>710</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>711</td>
+<td>    return Stack(list(deck.cards))</td>
+<td>0</td>
+</tr>
+</table>
+</body>
+</html>

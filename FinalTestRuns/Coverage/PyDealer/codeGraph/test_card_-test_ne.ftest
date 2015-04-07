@@ -1,0 +1,39 @@
+ --- modulename: test_card, funcname: test_lt_func
+test_card.py(226):     card = pydealer.Card("Ace", "Spades")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card.py(227):     two_diamonds = pydealer.Card("2", "Diamonds")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card.py(229):     result = card.lt(two_diamonds)
+ --- modulename: card, funcname: lt
+card.py(305):         ranks = ranks or DEFAULT_RANKS
+card.py(306):         if isinstance(other, Card):
+card.py(307):             if ranks.get("suits"):
+card.py(309):                     ranks["values"][self.value] <
+card.py(310):                     ranks["values"][other.value] or
+card.py(312):                         ranks["values"][self.value] <=
+card.py(313):                         ranks["values"][other.value] and
+test_card.py(230):     try:
+test_card.py(231):         assert result==False
+test_card.py(232):         return 0

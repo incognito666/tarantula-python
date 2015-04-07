@@ -1,0 +1,9 @@
+ --- modulename: test_card17, funcname: test_card_abbrev
+test_card17.py(35):     abbrev = card.card_abbrev("Ace", "Spades")
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+test_card17.py(36):     try:
+test_card17.py(37):         assert abbrev=="AS"
+test_card17.py(38):         return 0

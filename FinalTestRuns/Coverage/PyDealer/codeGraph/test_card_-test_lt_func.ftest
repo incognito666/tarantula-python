@@ -1,0 +1,34 @@
+ --- modulename: test_card, funcname: test_lt
+test_card.py(214):     card = pydealer.Card("Ace", "Spades")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card.py(215):     two_diamonds = pydealer.Card("2", "Diamonds")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card.py(216):     try:
+test_card.py(218):         assert two_diamonds<card
+ --- modulename: card, funcname: __gt__
+card.py(121):         if isinstance(other, Card):
+card.py(123):                 DEFAULT_RANKS["values"][self.value] >
+card.py(124):                 DEFAULT_RANKS["values"][other.value] or
+test_card.py(219):         return 0

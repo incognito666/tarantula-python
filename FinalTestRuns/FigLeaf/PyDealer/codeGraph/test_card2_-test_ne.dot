@@ -1,0 +1,5 @@
+digraph { 
+   setUp -> __init__ [color=green];
+   __init__ -> card_abbrev [color=green];
+   card_abbrev -> card_name [color=green];
+}

@@ -1,0 +1,8 @@
+ --- modulename: test_card, funcname: test_card_name
+test_card.py(48):     name = pydealer.card.card_name("Ace", "Spades")
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card.py(49):     try:
+test_card.py(50):         assert name=="Ace of Spades"
+test_card.py(51):         return 0

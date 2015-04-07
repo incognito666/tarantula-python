@@ -1,0 +1,1989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><title>C:\Python27\Scripts\Figtest\PyDealer\src\card.py</title>
+</head>
+<body><table border="3"><tr><th>Line Number</th>
+<th>Code</th>
+<th>Suspiciousness</th>
+</tr>
+<tr bgcolor="#C6BABA"><td>1</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>2</td>
+<td># PyDealer - Card Class
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>3</td>
+<td>#-------------------------------------------------------------------------------
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>4</td>
+<td># Version: 1.4.0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>5</td>
+<td># Updated: 10-01-2015
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>6</td>
+<td># Author: Alex Crawford
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>7</td>
+<td># License: GPLv3
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>8</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>9</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>10</td>
+<td>"""
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>11</td>
+<td>This module contains the ``Card`` class. Each ``Card`` instance represents a
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>12</td>
+<td>single playing card, of a given value and suit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>13</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>14</td>
+<td>"""
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>15</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>16</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>17</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>18</td>
+<td># Imports
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>19</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>20</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>21</td>
+<td>from pydealer.const import DEFAULT_RANKS
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>22</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>23</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>24</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>25</td>
+<td># Card Class
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>26</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>27</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>28</td>
+<td>class Card(object):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>29</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>30</td>
+<td>    The Card class, each instance representing a single playing card.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>31</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>32</td>
+<td>    :arg str value:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>33</td>
+<td>        The card value.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>34</td>
+<td>    :arg str suit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>35</td>
+<td>        The card suit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>36</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>37</td>
+<td>    """
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="yellow"><td>38</td>
+<td>    def __init__(self, value, suit):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>39</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>40</td>
+<td>        Card constructor method.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>41</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>42</td>
+<td>        :arg str value:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>43</td>
+<td>            The card value.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>44</td>
+<td>        :arg str suit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>45</td>
+<td>            The card suit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>46</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>47</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>48</td>
+<td>        self.value = str(value).capitalize()
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>49</td>
+<td>        self.suit = str(suit).capitalize() if suit else suit
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>50</td>
+<td>        self.abbrev = card_abbrev(self.value, self.suit)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>51</td>
+<td>        self.name = card_name(self.value, self.suit)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>52</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>53</td>
+<td>    def __eq__(self, other):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>54</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>55</td>
+<td>        Allows for Card value/suit equality comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>56</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>57</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>58</td>
+<td>            The other card to compare to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>59</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>60</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>61</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>62</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>63</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>64</td>
+<td>        return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>65</td>
+<td>            isinstance(other, Card) and self.value == other.value and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>66</td>
+<td>            self.suit == other.suit
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>67</td>
+<td>        )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>68</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>69</td>
+<td>    def __ne__(self, other):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>70</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>71</td>
+<td>        Allows for Card value/suit equality comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>72</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>73</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>74</td>
+<td>            The other card to compare to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>75</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>76</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>77</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>78</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>79</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>80</td>
+<td>        return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>81</td>
+<td>            isinstance(other, Card) and self.value != other.value or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>82</td>
+<td>            self.suit != other.suit
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>83</td>
+<td>        )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>84</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>85</td>
+<td>    def __ge__(self, other):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>86</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>87</td>
+<td>        Allows for Card ranking comparisons. Uses DEFAULT_RANKS for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>88</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>89</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>90</td>
+<td>            The other card to compare to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>91</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>92</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>93</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>94</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>95</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>96</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>97</td>
+<td>            return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>98</td>
+<td>                DEFAULT_RANKS["values"][self.value] >
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>99</td>
+<td>                DEFAULT_RANKS["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>100</td>
+<td>                (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>101</td>
+<td>                    DEFAULT_RANKS["values"][self.value] >=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>102</td>
+<td>                    DEFAULT_RANKS["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>103</td>
+<td>                    DEFAULT_RANKS["suits"][self.suit] >=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>104</td>
+<td>                    DEFAULT_RANKS["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>105</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>106</td>
+<td>            )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>107</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>108</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>109</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>110</td>
+<td>    def __gt__(self, other):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>111</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>112</td>
+<td>        Allows for Card ranking comparisons. Uses DEFAULT_RANKS for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>113</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>114</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>115</td>
+<td>            The other card to compare to.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>116</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>117</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>118</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>119</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>120</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>121</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>122</td>
+<td>            return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>123</td>
+<td>                DEFAULT_RANKS["values"][self.value] >
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>124</td>
+<td>                DEFAULT_RANKS["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>125</td>
+<td>                (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>126</td>
+<td>                    DEFAULT_RANKS["values"][self.value] >=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>127</td>
+<td>                    DEFAULT_RANKS["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>128</td>
+<td>                    DEFAULT_RANKS["suits"][self.suit] >
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>129</td>
+<td>                    DEFAULT_RANKS["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>130</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>131</td>
+<td>            )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>132</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>133</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>134</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>135</td>
+<td>    def __hash__(self):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>136</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>137</td>
+<td>        Returns the hash value of the ``Card`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>138</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>139</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>140</td>
+<td>            A unique number, or hash for the Card.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>141</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>142</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>143</td>
+<td>        return hash((self.value, self.suit))
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>144</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>145</td>
+<td>    def __repr__(self):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>146</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>147</td>
+<td>        Returns a string representation of the ``Card`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>148</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>149</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>150</td>
+<td>            A string representation of the Card instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>151</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>152</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>153</td>
+<td>        return "Card(value=%r, suit=%r)" % (self.value, self.suit)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>154</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>155</td>
+<td>    def __str__(self):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>156</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>157</td>
+<td>        Returns the full name of the ``Card`` instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>158</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>159</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>160</td>
+<td>            The card name.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>161</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>162</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>163</td>
+<td>        return "%s" % (self.name)
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>164</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>165</td>
+<td>    def eq(self, other, ranks=None):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>166</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>167</td>
+<td>        Compares the card against another card, ``other``, and checks whether
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>168</td>
+<td>        the card is equal to ``other``, based on the given rank dict.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>169</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>170</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>171</td>
+<td>            The second Card to compare.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>172</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>173</td>
+<td>            The ranks to refer to for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>174</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>175</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>176</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>177</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>178</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>179</td>
+<td>        ranks = ranks or DEFAULT_RANKS
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>180</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>181</td>
+<td>            if ranks.get("suits"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>182</td>
+<td>                return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>183</td>
+<td>                    ranks["values"][self.value] ==
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>184</td>
+<td>                    ranks["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>185</td>
+<td>                    ranks["suits"][self.suit] ==
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>186</td>
+<td>                    ranks["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>187</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>188</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>189</td>
+<td>                return ranks[self.value] == ranks[other.value]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>190</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>191</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>192</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>193</td>
+<td>    def ge(self, other, ranks=None):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>194</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>195</td>
+<td>        Compares the card against another card, ``other``, and checks whether
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>196</td>
+<td>        the card is greater than or equal to ``other``, based on the given rank
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>197</td>
+<td>        dict.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>198</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>199</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>200</td>
+<td>            The second Card to compare.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>201</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>202</td>
+<td>            The ranks to refer to for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>203</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>204</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>205</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>206</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>207</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>208</td>
+<td>        ranks = ranks or DEFAULT_RANKS
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>209</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>210</td>
+<td>            if ranks.get("suits"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>211</td>
+<td>                return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>212</td>
+<td>                    ranks["values"][self.value] >
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>213</td>
+<td>                    ranks["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>214</td>
+<td>                    (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>215</td>
+<td>                        ranks["values"][self.value] >=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>216</td>
+<td>                        ranks["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>217</td>
+<td>                        ranks["suits"][self.suit] >=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>218</td>
+<td>                        ranks["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>219</td>
+<td>                    )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>220</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>221</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>222</td>
+<td>                return ranks[self.value] >= ranks[other.value]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>223</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>224</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>225</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>226</td>
+<td>    def gt(self, other, ranks=None):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>227</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>228</td>
+<td>        Compares the card against another card, ``other``, and checks whether
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>229</td>
+<td>        the card is greater than ``other``, based on the given rank dict.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>230</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>231</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>232</td>
+<td>            The second Card to compare.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>233</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>234</td>
+<td>            The ranks to refer to for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>235</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>236</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>237</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>238</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>239</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>240</td>
+<td>        ranks = ranks or DEFAULT_RANKS
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>241</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>242</td>
+<td>            if ranks.get("suits"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>243</td>
+<td>                return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>244</td>
+<td>                    ranks["values"][self.value] >
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>245</td>
+<td>                    ranks["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>246</td>
+<td>                    (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>247</td>
+<td>                        ranks["values"][self.value] >=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>248</td>
+<td>                        ranks["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>249</td>
+<td>                        ranks["suits"][self.suit] >
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>250</td>
+<td>                        ranks["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>251</td>
+<td>                    )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>252</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>253</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>254</td>
+<td>                return ranks[self.value] > ranks[other.value]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>255</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>256</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>257</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>258</td>
+<td>    def le(self, other, ranks=None):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>259</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>260</td>
+<td>        Compares the card against another card, ``other``, and checks whether
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>261</td>
+<td>        the card is less than or equal to ``other``, based on the given rank
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>262</td>
+<td>        dict.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>263</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>264</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>265</td>
+<td>            The second Card to compare.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>266</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>267</td>
+<td>            The ranks to refer to for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>268</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>269</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>270</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>271</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>272</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>273</td>
+<td>        ranks = ranks or DEFAULT_RANKS
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>274</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>275</td>
+<td>            if ranks.get("suits"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>276</td>
+<td>                return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>277</td>
+<td>                    ranks["values"][self.value] <=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>278</td>
+<td>                    ranks["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>279</td>
+<td>                    (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>280</td>
+<td>                        ranks["values"][self.value] <=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>281</td>
+<td>                        ranks["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>282</td>
+<td>                        ranks["suits"][self.suit] <=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>283</td>
+<td>                        ranks["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>284</td>
+<td>                    )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>285</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>286</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>287</td>
+<td>                return ranks[self.value] <= ranks[other.value]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>288</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>289</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>290</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>291</td>
+<td>    def lt(self, other, ranks=None):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>292</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>293</td>
+<td>        Compares the card against another card, ``other``, and checks whether
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>294</td>
+<td>        the card is less than ``other``, based on the given rank dict.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>295</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>296</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>297</td>
+<td>            The second Card to compare.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>298</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>299</td>
+<td>            The ranks to refer to for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>300</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>301</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>302</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>303</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>304</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>305</td>
+<td>        ranks = ranks or DEFAULT_RANKS
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>306</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>307</td>
+<td>            if ranks.get("suits"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>308</td>
+<td>                return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>309</td>
+<td>                    ranks["values"][self.value] <
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>310</td>
+<td>                    ranks["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>311</td>
+<td>                    (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>312</td>
+<td>                        ranks["values"][self.value] <=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>313</td>
+<td>                        ranks["values"][other.value] and
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>314</td>
+<td>                        ranks["suits"][self.suit] <
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>315</td>
+<td>                        ranks["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>316</td>
+<td>                    )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>317</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>318</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>319</td>
+<td>                return ranks[self.value] < ranks[other.value]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>320</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>321</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>322</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>323</td>
+<td>    def ne(self, other, ranks=None):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>324</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>325</td>
+<td>        Compares the card against another card, ``other``, and checks whether
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>326</td>
+<td>        the card is not equal to ``other``, based on the given rank dict.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>327</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>328</td>
+<td>        :arg Card other:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>329</td>
+<td>            The second Card to compare.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>330</td>
+<td>        :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>331</td>
+<td>            The ranks to refer to for comparisons.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>332</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>333</td>
+<td>        :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>334</td>
+<td>            ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>335</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>336</td>
+<td>        """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>337</td>
+<td>        ranks = ranks or DEFAULT_RANKS
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>338</td>
+<td>        if isinstance(other, Card):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>339</td>
+<td>            if ranks.get("suits"):
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>340</td>
+<td>                return (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>341</td>
+<td>                    ranks["values"][self.value] !=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>342</td>
+<td>                    ranks["values"][other.value] or
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>343</td>
+<td>                    ranks["suits"][self.suit] !=
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>344</td>
+<td>                    ranks["suits"][other.suit]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>345</td>
+<td>                )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>346</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>347</td>
+<td>                return ranks[self.value] != ranks[other.value]
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>348</td>
+<td>        else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>349</td>
+<td>            return False
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>350</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>351</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>352</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>353</td>
+<td># Helper Functions
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>354</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>355</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>356</td>
+<td>def card_abbrev(value, suit):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>357</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>358</td>
+<td>    Constructs an abbreviation for the card, using the given
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>359</td>
+<td>    value, and suit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>360</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>361</td>
+<td>    :arg str value:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>362</td>
+<td>        The value to use.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>363</td>
+<td>    :arg str suit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>364</td>
+<td>        The suit to use.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>365</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>366</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>367</td>
+<td>        A newly constructed abbreviation, using the given value
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>368</td>
+<td>        & suit
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>369</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>370</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>371</td>
+<td>    if value == "Joker":
+</td>
+<td>0.470588235294</td>
+</tr>
+<tr bgcolor="green"><td>372</td>
+<td>        return "JKR"
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="yellow"><td>373</td>
+<td>    elif value == "10":
+</td>
+<td>0.470588235294</td>
+</tr>
+<tr bgcolor="green"><td>374</td>
+<td>        return "10%s" % (suit[0])
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>375</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>376</td>
+<td>        return "%s%s" % (value[0], suit[0])
+</td>
+<td>0.470588235294</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>377</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>378</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="yellow"><td>379</td>
+<td>def card_name(value, suit):
+</td>
+<td>0.5</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>380</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>381</td>
+<td>    Constructs a name for the card, using the given value,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>382</td>
+<td>    and suit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>383</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>384</td>
+<td>    :arg str value:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>385</td>
+<td>        The value to use.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>386</td>
+<td>    :arg str suit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>387</td>
+<td>        The suit to use.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>388</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>389</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>390</td>
+<td>        A newly constructed name, using the given value & suit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>391</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>392</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>393</td>
+<td>    if value == "Joker":
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="green"><td>394</td>
+<td>        return "Joker"
+</td>
+<td>0</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>395</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="green"><td>396</td>
+<td>        return "%s of %s" % (value, suit)</td>
+<td>0</td>
+</tr>
+</table>
+</body>
+</html>

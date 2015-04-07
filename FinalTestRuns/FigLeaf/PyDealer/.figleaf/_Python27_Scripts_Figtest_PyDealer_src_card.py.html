@@ -1,0 +1,403 @@
+source file: <b>C:\Python27\Scripts\Figtest\PyDealer\src\card.py</b><br>
+
+
+file stats: <b>117 lines, 23 executed: 19.7% covered</b>
+<pre>
+<font color="black">   1. #===============================================================================</font>
+<font color="black">   2. # PyDealer - Card Class</font>
+<font color="black">   3. #-------------------------------------------------------------------------------</font>
+<font color="black">   4. # Version: 1.4.0</font>
+<font color="black">   5. # Updated: 10-01-2015</font>
+<font color="black">   6. # Author: Alex Crawford</font>
+<font color="black">   7. # License: GPLv3</font>
+<font color="black">   8. #===============================================================================</font>
+<font color="black">   9. </font>
+<font color="black">  10. &quot;&quot;&quot;</font>
+<font color="black">  11. This module contains the ``Card`` class. Each ``Card`` instance represents a</font>
+<font color="black">  12. single playing card, of a given value and suit.</font>
+<font color="black">  13. </font>
+<font color="green">  14. &quot;&quot;&quot;</font>
+<font color="black">  15. </font>
+<font color="black">  16. </font>
+<font color="black">  17. #===============================================================================</font>
+<font color="black">  18. # Imports</font>
+<font color="black">  19. #===============================================================================</font>
+<font color="black">  20. </font>
+<font color="green">  21. from pydealer.const import DEFAULT_RANKS</font>
+<font color="black">  22. </font>
+<font color="black">  23. </font>
+<font color="black">  24. #===============================================================================</font>
+<font color="black">  25. # Card Class</font>
+<font color="black">  26. #===============================================================================</font>
+<font color="black">  27. </font>
+<font color="green">  28. class Card(object):</font>
+<font color="black">  29.     &quot;&quot;&quot;</font>
+<font color="black">  30.     The Card class, each instance representing a single playing card.</font>
+<font color="black">  31. </font>
+<font color="black">  32.     :arg str value:</font>
+<font color="black">  33.         The card value.</font>
+<font color="black">  34.     :arg str suit:</font>
+<font color="black">  35.         The card suit.</font>
+<font color="black">  36. </font>
+<font color="green">  37.     &quot;&quot;&quot;</font>
+<font color="green">  38.     def __init__(self, value, suit):</font>
+<font color="black">  39.         &quot;&quot;&quot;</font>
+<font color="black">  40.         Card constructor method.</font>
+<font color="black">  41. </font>
+<font color="black">  42.         :arg str value:</font>
+<font color="black">  43.             The card value.</font>
+<font color="black">  44.         :arg str suit:</font>
+<font color="black">  45.             The card suit.</font>
+<font color="black">  46. </font>
+<font color="black">  47.         &quot;&quot;&quot;</font>
+<font color="red">  48.         self.value = str(value).capitalize()</font>
+<font color="red">  49.         self.suit = str(suit).capitalize() if suit else suit</font>
+<font color="red">  50.         self.abbrev = card_abbrev(self.value, self.suit)</font>
+<font color="red">  51.         self.name = card_name(self.value, self.suit)</font>
+<font color="black">  52. </font>
+<font color="green">  53.     def __eq__(self, other):</font>
+<font color="black">  54.         &quot;&quot;&quot;</font>
+<font color="black">  55.         Allows for Card value/suit equality comparisons.</font>
+<font color="black">  56. </font>
+<font color="black">  57.         :arg Card other:</font>
+<font color="black">  58.             The other card to compare to.</font>
+<font color="black">  59. </font>
+<font color="black">  60.         :returns:</font>
+<font color="black">  61.             ``True`` or ``False``.</font>
+<font color="black">  62. </font>
+<font color="black">  63.         &quot;&quot;&quot;</font>
+<font color="black">  64.         return (</font>
+<font color="red">  65.             isinstance(other, Card) and self.value == other.value and</font>
+<font color="red">  66.             self.suit == other.suit</font>
+<font color="black">  67.         )</font>
+<font color="black">  68. </font>
+<font color="green">  69.     def __ne__(self, other):</font>
+<font color="black">  70.         &quot;&quot;&quot;</font>
+<font color="black">  71.         Allows for Card value/suit equality comparisons.</font>
+<font color="black">  72. </font>
+<font color="black">  73.         :arg Card other:</font>
+<font color="black">  74.             The other card to compare to.</font>
+<font color="black">  75. </font>
+<font color="black">  76.         :returns:</font>
+<font color="black">  77.             ``True`` or ``False``.</font>
+<font color="black">  78. </font>
+<font color="black">  79.         &quot;&quot;&quot;</font>
+<font color="black">  80.         return (</font>
+<font color="red">  81.             isinstance(other, Card) and self.value != other.value or</font>
+<font color="red">  82.             self.suit != other.suit</font>
+<font color="black">  83.         )</font>
+<font color="black">  84. </font>
+<font color="green">  85.     def __ge__(self, other):</font>
+<font color="black">  86.         &quot;&quot;&quot;</font>
+<font color="black">  87.         Allows for Card ranking comparisons. Uses DEFAULT_RANKS for comparisons.</font>
+<font color="black">  88. </font>
+<font color="black">  89.         :arg Card other:</font>
+<font color="black">  90.             The other card to compare to.</font>
+<font color="black">  91. </font>
+<font color="black">  92.         :returns:</font>
+<font color="black">  93.             ``True`` or ``False``.</font>
+<font color="black">  94. </font>
+<font color="black">  95.         &quot;&quot;&quot;</font>
+<font color="red">  96.         if isinstance(other, Card):</font>
+<font color="black">  97.             return (</font>
+<font color="red">  98.                 DEFAULT_RANKS[&quot;values&quot;][self.value] &gt;</font>
+<font color="red">  99.                 DEFAULT_RANKS[&quot;values&quot;][other.value] or</font>
+<font color="black"> 100.                 (</font>
+<font color="red"> 101.                     DEFAULT_RANKS[&quot;values&quot;][self.value] &gt;=</font>
+<font color="red"> 102.                     DEFAULT_RANKS[&quot;values&quot;][other.value] and</font>
+<font color="red"> 103.                     DEFAULT_RANKS[&quot;suits&quot;][self.suit] &gt;=</font>
+<font color="red"> 104.                     DEFAULT_RANKS[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 105.                 )</font>
+<font color="black"> 106.             )</font>
+<font color="black"> 107.         else:</font>
+<font color="red"> 108.             return False</font>
+<font color="black"> 109. </font>
+<font color="green"> 110.     def __gt__(self, other):</font>
+<font color="black"> 111.         &quot;&quot;&quot;</font>
+<font color="black"> 112.         Allows for Card ranking comparisons. Uses DEFAULT_RANKS for comparisons.</font>
+<font color="black"> 113. </font>
+<font color="black"> 114.         :arg Card other:</font>
+<font color="black"> 115.             The other card to compare to.</font>
+<font color="black"> 116. </font>
+<font color="black"> 117.         :returns:</font>
+<font color="black"> 118.             ``True`` or ``False``.</font>
+<font color="black"> 119. </font>
+<font color="black"> 120.         &quot;&quot;&quot;</font>
+<font color="red"> 121.         if isinstance(other, Card):</font>
+<font color="black"> 122.             return (</font>
+<font color="red"> 123.                 DEFAULT_RANKS[&quot;values&quot;][self.value] &gt;</font>
+<font color="red"> 124.                 DEFAULT_RANKS[&quot;values&quot;][other.value] or</font>
+<font color="black"> 125.                 (</font>
+<font color="red"> 126.                     DEFAULT_RANKS[&quot;values&quot;][self.value] &gt;=</font>
+<font color="red"> 127.                     DEFAULT_RANKS[&quot;values&quot;][other.value] and</font>
+<font color="red"> 128.                     DEFAULT_RANKS[&quot;suits&quot;][self.suit] &gt;</font>
+<font color="red"> 129.                     DEFAULT_RANKS[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 130.                 )</font>
+<font color="black"> 131.             )</font>
+<font color="black"> 132.         else:</font>
+<font color="red"> 133.             return False</font>
+<font color="black"> 134. </font>
+<font color="green"> 135.     def __hash__(self):</font>
+<font color="black"> 136.         &quot;&quot;&quot;</font>
+<font color="black"> 137.         Returns the hash value of the ``Card`` instance.</font>
+<font color="black"> 138. </font>
+<font color="black"> 139.         :returns:</font>
+<font color="black"> 140.             A unique number, or hash for the Card.</font>
+<font color="black"> 141. </font>
+<font color="black"> 142.         &quot;&quot;&quot;</font>
+<font color="red"> 143.         return hash((self.value, self.suit))</font>
+<font color="black"> 144. </font>
+<font color="green"> 145.     def __repr__(self):</font>
+<font color="black"> 146.         &quot;&quot;&quot;</font>
+<font color="black"> 147.         Returns a string representation of the ``Card`` instance.</font>
+<font color="black"> 148. </font>
+<font color="black"> 149.         :returns:</font>
+<font color="black"> 150.             A string representation of the Card instance.</font>
+<font color="black"> 151. </font>
+<font color="black"> 152.         &quot;&quot;&quot;</font>
+<font color="red"> 153.         return &quot;Card(value=%r, suit=%r)&quot; % (self.value, self.suit)</font>
+<font color="black"> 154. </font>
+<font color="green"> 155.     def __str__(self):</font>
+<font color="black"> 156.         &quot;&quot;&quot;</font>
+<font color="black"> 157.         Returns the full name of the ``Card`` instance.</font>
+<font color="black"> 158. </font>
+<font color="black"> 159.         :returns:</font>
+<font color="black"> 160.             The card name.</font>
+<font color="black"> 161. </font>
+<font color="black"> 162.         &quot;&quot;&quot;</font>
+<font color="red"> 163.         return &quot;%s&quot; % (self.name)</font>
+<font color="black"> 164. </font>
+<font color="green"> 165.     def eq(self, other, ranks=None):</font>
+<font color="black"> 166.         &quot;&quot;&quot;</font>
+<font color="black"> 167.         Compares the card against another card, ``other``, and checks whether</font>
+<font color="black"> 168.         the card is equal to ``other``, based on the given rank dict.</font>
+<font color="black"> 169. </font>
+<font color="black"> 170.         :arg Card other:</font>
+<font color="black"> 171.             The second Card to compare.</font>
+<font color="black"> 172.         :arg dict ranks:</font>
+<font color="black"> 173.             The ranks to refer to for comparisons.</font>
+<font color="black"> 174. </font>
+<font color="black"> 175.         :returns:</font>
+<font color="black"> 176.             ``True`` or ``False``.</font>
+<font color="black"> 177. </font>
+<font color="black"> 178.         &quot;&quot;&quot;</font>
+<font color="red"> 179.         ranks = ranks or DEFAULT_RANKS</font>
+<font color="red"> 180.         if isinstance(other, Card):</font>
+<font color="red"> 181.             if ranks.get(&quot;suits&quot;):</font>
+<font color="black"> 182.                 return (</font>
+<font color="red"> 183.                     ranks[&quot;values&quot;][self.value] ==</font>
+<font color="red"> 184.                     ranks[&quot;values&quot;][other.value] and</font>
+<font color="red"> 185.                     ranks[&quot;suits&quot;][self.suit] ==</font>
+<font color="red"> 186.                     ranks[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 187.                 )</font>
+<font color="black"> 188.             else:</font>
+<font color="red"> 189.                 return ranks[self.value] == ranks[other.value]</font>
+<font color="black"> 190.         else:</font>
+<font color="red"> 191.             return False</font>
+<font color="black"> 192. </font>
+<font color="green"> 193.     def ge(self, other, ranks=None):</font>
+<font color="black"> 194.         &quot;&quot;&quot;</font>
+<font color="black"> 195.         Compares the card against another card, ``other``, and checks whether</font>
+<font color="black"> 196.         the card is greater than or equal to ``other``, based on the given rank</font>
+<font color="black"> 197.         dict.</font>
+<font color="black"> 198. </font>
+<font color="black"> 199.         :arg Card other:</font>
+<font color="black"> 200.             The second Card to compare.</font>
+<font color="black"> 201.         :arg dict ranks:</font>
+<font color="black"> 202.             The ranks to refer to for comparisons.</font>
+<font color="black"> 203. </font>
+<font color="black"> 204.         :returns:</font>
+<font color="black"> 205.             ``True`` or ``False``.</font>
+<font color="black"> 206. </font>
+<font color="black"> 207.         &quot;&quot;&quot;</font>
+<font color="red"> 208.         ranks = ranks or DEFAULT_RANKS</font>
+<font color="red"> 209.         if isinstance(other, Card):</font>
+<font color="red"> 210.             if ranks.get(&quot;suits&quot;):</font>
+<font color="black"> 211.                 return (</font>
+<font color="red"> 212.                     ranks[&quot;values&quot;][self.value] &gt;</font>
+<font color="red"> 213.                     ranks[&quot;values&quot;][other.value] or</font>
+<font color="black"> 214.                     (</font>
+<font color="red"> 215.                         ranks[&quot;values&quot;][self.value] &gt;=</font>
+<font color="red"> 216.                         ranks[&quot;values&quot;][other.value] and</font>
+<font color="red"> 217.                         ranks[&quot;suits&quot;][self.suit] &gt;=</font>
+<font color="red"> 218.                         ranks[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 219.                     )</font>
+<font color="black"> 220.                 )</font>
+<font color="black"> 221.             else:</font>
+<font color="red"> 222.                 return ranks[self.value] &gt;= ranks[other.value]</font>
+<font color="black"> 223.         else:</font>
+<font color="red"> 224.             return False</font>
+<font color="black"> 225. </font>
+<font color="green"> 226.     def gt(self, other, ranks=None):</font>
+<font color="black"> 227.         &quot;&quot;&quot;</font>
+<font color="black"> 228.         Compares the card against another card, ``other``, and checks whether</font>
+<font color="black"> 229.         the card is greater than ``other``, based on the given rank dict.</font>
+<font color="black"> 230. </font>
+<font color="black"> 231.         :arg Card other:</font>
+<font color="black"> 232.             The second Card to compare.</font>
+<font color="black"> 233.         :arg dict ranks:</font>
+<font color="black"> 234.             The ranks to refer to for comparisons.</font>
+<font color="black"> 235. </font>
+<font color="black"> 236.         :returns:</font>
+<font color="black"> 237.             ``True`` or ``False``.</font>
+<font color="black"> 238. </font>
+<font color="black"> 239.         &quot;&quot;&quot;</font>
+<font color="red"> 240.         ranks = ranks or DEFAULT_RANKS</font>
+<font color="red"> 241.         if isinstance(other, Card):</font>
+<font color="red"> 242.             if ranks.get(&quot;suits&quot;):</font>
+<font color="black"> 243.                 return (</font>
+<font color="red"> 244.                     ranks[&quot;values&quot;][self.value] &gt;</font>
+<font color="red"> 245.                     ranks[&quot;values&quot;][other.value] or</font>
+<font color="black"> 246.                     (</font>
+<font color="red"> 247.                         ranks[&quot;values&quot;][self.value] &gt;=</font>
+<font color="red"> 248.                         ranks[&quot;values&quot;][other.value] and</font>
+<font color="red"> 249.                         ranks[&quot;suits&quot;][self.suit] &gt;</font>
+<font color="red"> 250.                         ranks[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 251.                     )</font>
+<font color="black"> 252.                 )</font>
+<font color="black"> 253.             else:</font>
+<font color="red"> 254.                 return ranks[self.value] &gt; ranks[other.value]</font>
+<font color="black"> 255.         else:</font>
+<font color="red"> 256.             return False</font>
+<font color="black"> 257. </font>
+<font color="green"> 258.     def le(self, other, ranks=None):</font>
+<font color="black"> 259.         &quot;&quot;&quot;</font>
+<font color="black"> 260.         Compares the card against another card, ``other``, and checks whether</font>
+<font color="black"> 261.         the card is less than or equal to ``other``, based on the given rank</font>
+<font color="black"> 262.         dict.</font>
+<font color="black"> 263. </font>
+<font color="black"> 264.         :arg Card other:</font>
+<font color="black"> 265.             The second Card to compare.</font>
+<font color="black"> 266.         :arg dict ranks:</font>
+<font color="black"> 267.             The ranks to refer to for comparisons.</font>
+<font color="black"> 268. </font>
+<font color="black"> 269.         :returns:</font>
+<font color="black"> 270.             ``True`` or ``False``.</font>
+<font color="black"> 271. </font>
+<font color="black"> 272.         &quot;&quot;&quot;</font>
+<font color="red"> 273.         ranks = ranks or DEFAULT_RANKS</font>
+<font color="red"> 274.         if isinstance(other, Card):</font>
+<font color="red"> 275.             if ranks.get(&quot;suits&quot;):</font>
+<font color="black"> 276.                 return (</font>
+<font color="red"> 277.                     ranks[&quot;values&quot;][self.value] &lt;=</font>
+<font color="red"> 278.                     ranks[&quot;values&quot;][other.value] or</font>
+<font color="black"> 279.                     (</font>
+<font color="red"> 280.                         ranks[&quot;values&quot;][self.value] &lt;=</font>
+<font color="red"> 281.                         ranks[&quot;values&quot;][other.value] and</font>
+<font color="red"> 282.                         ranks[&quot;suits&quot;][self.suit] &lt;=</font>
+<font color="red"> 283.                         ranks[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 284.                     )</font>
+<font color="black"> 285.                 )</font>
+<font color="black"> 286.             else:</font>
+<font color="red"> 287.                 return ranks[self.value] &lt;= ranks[other.value]</font>
+<font color="black"> 288.         else:</font>
+<font color="red"> 289.             return False</font>
+<font color="black"> 290. </font>
+<font color="green"> 291.     def lt(self, other, ranks=None):</font>
+<font color="black"> 292.         &quot;&quot;&quot;</font>
+<font color="black"> 293.         Compares the card against another card, ``other``, and checks whether</font>
+<font color="black"> 294.         the card is less than ``other``, based on the given rank dict.</font>
+<font color="black"> 295. </font>
+<font color="black"> 296.         :arg Card other:</font>
+<font color="black"> 297.             The second Card to compare.</font>
+<font color="black"> 298.         :arg dict ranks:</font>
+<font color="black"> 299.             The ranks to refer to for comparisons.</font>
+<font color="black"> 300. </font>
+<font color="black"> 301.         :returns:</font>
+<font color="black"> 302.             ``True`` or ``False``.</font>
+<font color="black"> 303. </font>
+<font color="black"> 304.         &quot;&quot;&quot;</font>
+<font color="red"> 305.         ranks = ranks or DEFAULT_RANKS</font>
+<font color="red"> 306.         if isinstance(other, Card):</font>
+<font color="red"> 307.             if ranks.get(&quot;suits&quot;):</font>
+<font color="black"> 308.                 return (</font>
+<font color="red"> 309.                     ranks[&quot;values&quot;][self.value] &lt;</font>
+<font color="red"> 310.                     ranks[&quot;values&quot;][other.value] or</font>
+<font color="black"> 311.                     (</font>
+<font color="red"> 312.                         ranks[&quot;values&quot;][self.value] &lt;=</font>
+<font color="red"> 313.                         ranks[&quot;values&quot;][other.value] and</font>
+<font color="red"> 314.                         ranks[&quot;suits&quot;][self.suit] &lt;</font>
+<font color="red"> 315.                         ranks[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 316.                     )</font>
+<font color="black"> 317.                 )</font>
+<font color="black"> 318.             else:</font>
+<font color="red"> 319.                 return ranks[self.value] &lt; ranks[other.value]</font>
+<font color="black"> 320.         else:</font>
+<font color="red"> 321.             return False</font>
+<font color="black"> 322. </font>
+<font color="green"> 323.     def ne(self, other, ranks=None):</font>
+<font color="black"> 324.         &quot;&quot;&quot;</font>
+<font color="black"> 325.         Compares the card against another card, ``other``, and checks whether</font>
+<font color="black"> 326.         the card is not equal to ``other``, based on the given rank dict.</font>
+<font color="black"> 327. </font>
+<font color="black"> 328.         :arg Card other:</font>
+<font color="black"> 329.             The second Card to compare.</font>
+<font color="black"> 330.         :arg dict ranks:</font>
+<font color="black"> 331.             The ranks to refer to for comparisons.</font>
+<font color="black"> 332. </font>
+<font color="black"> 333.         :returns:</font>
+<font color="black"> 334.             ``True`` or ``False``.</font>
+<font color="black"> 335. </font>
+<font color="black"> 336.         &quot;&quot;&quot;</font>
+<font color="red"> 337.         ranks = ranks or DEFAULT_RANKS</font>
+<font color="red"> 338.         if isinstance(other, Card):</font>
+<font color="red"> 339.             if ranks.get(&quot;suits&quot;):</font>
+<font color="black"> 340.                 return (</font>
+<font color="red"> 341.                     ranks[&quot;values&quot;][self.value] !=</font>
+<font color="red"> 342.                     ranks[&quot;values&quot;][other.value] or</font>
+<font color="red"> 343.                     ranks[&quot;suits&quot;][self.suit] !=</font>
+<font color="red"> 344.                     ranks[&quot;suits&quot;][other.suit]</font>
+<font color="black"> 345.                 )</font>
+<font color="black"> 346.             else:</font>
+<font color="red"> 347.                 return ranks[self.value] != ranks[other.value]</font>
+<font color="black"> 348.         else:</font>
+<font color="red"> 349.             return False</font>
+<font color="black"> 350. </font>
+<font color="black"> 351. </font>
+<font color="black"> 352. #===============================================================================</font>
+<font color="black"> 353. # Helper Functions</font>
+<font color="black"> 354. #===============================================================================</font>
+<font color="black"> 355. </font>
+<font color="green"> 356. def card_abbrev(value, suit):</font>
+<font color="black"> 357.     &quot;&quot;&quot;</font>
+<font color="black"> 358.     Constructs an abbreviation for the card, using the given</font>
+<font color="black"> 359.     value, and suit.</font>
+<font color="black"> 360. </font>
+<font color="black"> 361.     :arg str value:</font>
+<font color="black"> 362.         The value to use.</font>
+<font color="black"> 363.     :arg str suit:</font>
+<font color="black"> 364.         The suit to use.</font>
+<font color="black"> 365. </font>
+<font color="black"> 366.     :returns:</font>
+<font color="black"> 367.         A newly constructed abbreviation, using the given value</font>
+<font color="black"> 368.         &amp; suit</font>
+<font color="black"> 369. </font>
+<font color="black"> 370.     &quot;&quot;&quot;</font>
+<font color="green"> 371.     if value == &quot;Joker&quot;:</font>
+<font color="red"> 372.         return &quot;JKR&quot;</font>
+<font color="green"> 373.     elif value == &quot;10&quot;:</font>
+<font color="red"> 374.         return &quot;10%s&quot; % (suit[0])</font>
+<font color="black"> 375.     else:</font>
+<font color="green"> 376.         return &quot;%s%s&quot; % (value[0], suit[0])</font>
+<font color="black"> 377. </font>
+<font color="black"> 378. </font>
+<font color="green"> 379. def card_name(value, suit):</font>
+<font color="black"> 380.     &quot;&quot;&quot;</font>
+<font color="black"> 381.     Constructs a name for the card, using the given value,</font>
+<font color="black"> 382.     and suit.</font>
+<font color="black"> 383. </font>
+<font color="black"> 384.     :arg str value:</font>
+<font color="black"> 385.         The value to use.</font>
+<font color="black"> 386.     :arg str suit:</font>
+<font color="black"> 387.         The suit to use.</font>
+<font color="black"> 388. </font>
+<font color="black"> 389.     :returns:</font>
+<font color="black"> 390.         A newly constructed name, using the given value &amp; suit.</font>
+<font color="black"> 391. </font>
+<font color="black"> 392.     &quot;&quot;&quot;</font>
+<font color="red"> 393.     if value == &quot;Joker&quot;:</font>
+<font color="red"> 394.         return &quot;Joker&quot;</font>
+<font color="black"> 395.     else:</font>
+<font color="red"> 396.         return &quot;%s of %s&quot; % (value, suit)</font>
+</pre>
+

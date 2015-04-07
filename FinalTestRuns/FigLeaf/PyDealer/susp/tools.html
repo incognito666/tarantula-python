@@ -1,0 +1,2319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><title>C:\Python27\Scripts\Figtest\PyDealer\src\tools.py</title>
+</head>
+<body><table border="3"><tr><th>Line Number</th>
+<th>Code</th>
+<th>Suspiciousness</th>
+</tr>
+<tr bgcolor="#C6BABA"><td>1</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>2</td>
+<td># PyDealer - Tools
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>3</td>
+<td>#-------------------------------------------------------------------------------
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>4</td>
+<td># Version: 1.4.0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>5</td>
+<td># Updated: 10-01-2015
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>6</td>
+<td># Author: Alex Crawford
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>7</td>
+<td># License: GPLv3
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>8</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>9</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>10</td>
+<td>"""
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>11</td>
+<td>The tools module contains functions for working with sequences of cards, some
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>12</td>
+<td>of which are used by the classes in the PyDealer package, such as the functions
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>13</td>
+<td>``build_cards``, ``sort_cards``, and ``check_term`` for example.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>14</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>15</td>
+<td>"""
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>16</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>17</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>18</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>19</td>
+<td># Imports
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>20</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>21</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>22</td>
+<td>import random
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>23</td>
+<td>import time
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>24</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>25</td>
+<td>from pydealer.card import Card
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>26</td>
+<td>from pydealer.const import (
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>27</td>
+<td>    DEFAULT_RANKS,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>28</td>
+<td>    VALUES,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>29</td>
+<td>    SUITS
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>30</td>
+<td>)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>31</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>32</td>
+<td># Dirty little try/except, to make PyDealer work with Python 3.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>33</td>
+<td>try:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>34</td>
+<td>    xrange
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>35</td>
+<td>except:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>36</td>
+<td>    xrange = range
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>37</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>38</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>39</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>40</td>
+<td># Utility Functions
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>41</td>
+<td>#===============================================================================
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>42</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>43</td>
+<td>def build_cards(jokers=False, num_jokers=0):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>44</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>45</td>
+<td>    Builds a list containing a full French deck of 52 Card instances. The
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>46</td>
+<td>    cards are sorted according to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>47</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>48</td>
+<td>    .. note:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>49</td>
+<td>        Adding jokers may break some functions & methods at the moment.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>50</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>51</td>
+<td>    :arg bool jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>52</td>
+<td>        Whether or not to include jokers in the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>53</td>
+<td>    :arg int num_jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>54</td>
+<td>        The number of jokers to include.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>55</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>56</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>57</td>
+<td>        A list containing a full French deck of 52 Card instances.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>58</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>59</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>60</td>
+<td>    new_deck = []
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>61</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>62</td>
+<td>    if jokers:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>63</td>
+<td>        new_deck += [Card("Joker", None) for i in xrange(num_jokers)]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>64</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>65</td>
+<td>    new_deck += [Card(value, suit) for value in VALUES for suit in SUITS]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>66</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>67</td>
+<td>    return new_deck
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>68</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>69</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>70</td>
+<td>def check_sorted(cards, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>71</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>72</td>
+<td>    Checks whether the given cards are sorted by the given ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>73</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>74</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>75</td>
+<td>        The cards to check. Can be a ``Stack``, ``Deck``, or ``list`` of
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>76</td>
+<td>        ``Card`` isntances.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>77</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>78</td>
+<td>        The ranks to check against. Default is DEFAULT_RANKS.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>79</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>80</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>81</td>
+<td>        ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>82</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>83</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>84</td>
+<td>    ranks = ranks or DEFAULT_RANKS
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>85</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>86</td>
+<td>    sorted_cards = sort_cards(cards, ranks)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>87</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>88</td>
+<td>    if cards == sorted_cards or cards[::-1] == sorted_cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>89</td>
+<td>        return True
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>90</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>91</td>
+<td>        return False
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>92</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>93</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>94</td>
+<td>def check_term(card, term):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>95</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>96</td>
+<td>    Checks a given search term against a given card's full name, suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>97</td>
+<td>    value, and abbreviation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>98</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>99</td>
+<td>    :arg Card card:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>100</td>
+<td>        The card to check.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>101</td>
+<td>    :arg str term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>102</td>
+<td>        The search term to check for. Can be a card full name, suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>103</td>
+<td>        value, or abbreviation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>104</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>105</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>106</td>
+<td>        ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>107</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>108</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>109</td>
+<td>    check_list = [
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>110</td>
+<td>        x.lower() for x in [card.name, card.suit, card.value, card.abbrev,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>111</td>
+<td>        card.suit[0], card.value[0]]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>112</td>
+<td>    ]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>113</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>114</td>
+<td>    term = term.lower()
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>115</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>116</td>
+<td>    for check in check_list:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>117</td>
+<td>        if check == term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>118</td>
+<td>            return True
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>119</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>120</td>
+<td>    return False
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>121</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>122</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>123</td>
+<td>def compare_stacks(cards_x, cards_y, sorted=False):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>124</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>125</td>
+<td>    Checks whether two given ``Stack``, ``Deck``, or ``list`` instances,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>126</td>
+<td>    contain the same cards (based on value & suit, not instance). Does not
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>127</td>
+<td>    take into account the ordering.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>128</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>129</td>
+<td>    :arg cards_x:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>130</td>
+<td>        The first stack to check. Can be a ``Stack``, ``Deck``, or ``list``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>131</td>
+<td>        instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>132</td>
+<td>    :arg cards_y:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>133</td>
+<td>        The second stack to check. Can be a ``Stack``, ``Deck``, or ``list``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>134</td>
+<td>        instance.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>135</td>
+<td>    :arg bool sorted:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>136</td>
+<td>        Whether or not the cards are already sorted. If ``True``, then
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>137</td>
+<td>        ``compare_stacks`` will skip the sorting process.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>138</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>139</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>140</td>
+<td>        ``True`` or ``False``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>141</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>142</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>143</td>
+<td>    if len(cards_x) == len(cards_y):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>144</td>
+<td>        if not sorted:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>145</td>
+<td>            cards_x = sort_cards(cards_x, DEFAULT_RANKS)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>146</td>
+<td>            cards_y = sort_cards(cards_y, DEFAULT_RANKS)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>147</td>
+<td>        for i, c in enumerate(cards_x):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>148</td>
+<td>            if c != cards_y[i]:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>149</td>
+<td>                return False
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>150</td>
+<td>        return True
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>151</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>152</td>
+<td>        return False
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>153</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>154</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>155</td>
+<td>def find_card(cards, term, limit=0, sort=False, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>156</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>157</td>
+<td>    Searches the given cards for cards with a value, suit, name, or
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>158</td>
+<td>    abbreviation matching the given argument, ``term``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>159</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>160</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>161</td>
+<td>        The cards to search. Can be a ``Stack``, ``Deck`` or ``list``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>162</td>
+<td>    :arg str term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>163</td>
+<td>        The search term. Can be a card full name, value, suit,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>164</td>
+<td>        or abbreviation.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>165</td>
+<td>    :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>166</td>
+<td>        The number of items to retrieve for each term.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>167</td>
+<td>    :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>168</td>
+<td>        Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>169</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>170</td>
+<td>        The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>171</td>
+<td>        default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>172</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>173</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>174</td>
+<td>        A list of indices for the cards matching the given terms,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>175</td>
+<td>        if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>176</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>177</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>178</td>
+<td>    found_indices = []
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>179</td>
+<td>    count = 0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>180</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>181</td>
+<td>    if not limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>182</td>
+<td>        for i, card in enumerate(cards):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>183</td>
+<td>            if check_term(card, term):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>184</td>
+<td>                found_indices.append(i)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>185</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>186</td>
+<td>        for i, card in enumerate(cards):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>187</td>
+<td>            if count < limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>188</td>
+<td>                if check_term(card, term):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>189</td>
+<td>                    found_indices.append(i)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>190</td>
+<td>                    count += 1
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>191</td>
+<td>            else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>192</td>
+<td>                break
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>193</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>194</td>
+<td>    if sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>195</td>
+<td>        found_indices = sort_card_indices(self, found_indices, ranks)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>196</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>197</td>
+<td>    return found_indices
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>198</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>199</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>200</td>
+<td>def find_list(cards, terms, limit=0, sort=False, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>201</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>202</td>
+<td>    Searches the given cards for cards with a value, suit, name, or
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>203</td>
+<td>    abbreviation matching the given argument, ``terms``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>204</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>205</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>206</td>
+<td>        The cards to search. Can be a ``Stack``, ``Deck`` or ``list``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>207</td>
+<td>    :arg list terms:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>208</td>
+<td>        The search terms. Can be card full names, suits, values,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>209</td>
+<td>        or abbreviations.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>210</td>
+<td>    :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>211</td>
+<td>        The number of items to retrieve for each term. 0 == no limit.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>212</td>
+<td>    :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>213</td>
+<td>        Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>214</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>215</td>
+<td>        The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>216</td>
+<td>        default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>217</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>218</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>219</td>
+<td>        A list of indices for the cards matching the given terms,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>220</td>
+<td>        if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>221</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>222</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>223</td>
+<td>    found_indices = []
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>224</td>
+<td>    count = 0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>225</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>226</td>
+<td>    if not limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>227</td>
+<td>        for term in terms:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>228</td>
+<td>            for i, card in enumerate(cards):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>229</td>
+<td>                if check_term(card, term) and i not in found_indices:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>230</td>
+<td>                    found_indices.append(i)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>231</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>232</td>
+<td>        for term in terms:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>233</td>
+<td>            for i, card in enumerate(cards):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>234</td>
+<td>                if count < limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>235</td>
+<td>                    if check_term(card, term) and i not in found_indices:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>236</td>
+<td>                        found_indices.append(i)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>237</td>
+<td>                        count += 1
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>238</td>
+<td>                else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>239</td>
+<td>                    break
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>240</td>
+<td>            count = 0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>241</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>242</td>
+<td>    if sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>243</td>
+<td>        found_indices = sort_card_indices(cards, found_indices, ranks)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>244</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>245</td>
+<td>    return found_indices
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>246</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>247</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>248</td>
+<td>def get_card(cards, term, limit=0, sort=False, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>249</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>250</td>
+<td>    Get the specified card from the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>251</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>252</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>253</td>
+<td>        The cards to get from. Can be a ``Stack``, ``Deck`` or ``list``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>254</td>
+<td>    :arg str term:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>255</td>
+<td>        The card's full name, value, suit, abbreviation, or stack indice.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>256</td>
+<td>    :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>257</td>
+<td>        The number of items to retrieve for each term.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>258</td>
+<td>    :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>259</td>
+<td>        Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>260</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>261</td>
+<td>        If ``sort=True``, the rank dict to refer to for sorting.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>262</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>263</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>264</td>
+<td>        A copy of the given cards, with the found cards removed, and a list
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>265</td>
+<td>        of the specified cards, if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>266</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>267</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>268</td>
+<td>    got_cards = []
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>269</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>270</td>
+<td>    try:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>271</td>
+<td>        indices = find_card(cards, term, limit=limit)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>272</td>
+<td>        got_cards = [cards[i] for i in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>273</td>
+<td>        cards = [v for i, v in enumerate(cards) if i not in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>274</td>
+<td>    except:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>275</td>
+<td>        got_cards = [cards[term]]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>276</td>
+<td>        cards = [v for i, v in enumerate(cards) if i is not term]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>277</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>278</td>
+<td>    if sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>279</td>
+<td>        got_cards = sort_cards(got_cards)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>280</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>281</td>
+<td>    return cards, got_cards
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>282</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>283</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>284</td>
+<td>def get_list(cards, terms, limit=0, sort=False, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>285</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>286</td>
+<td>    Get the specified cards from the stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>287</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>288</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>289</td>
+<td>        The cards to get from. Can be a ``Stack``, ``Deck`` or ``list``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>290</td>
+<td>    :arg list terms:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>291</td>
+<td>        A list of card's full names, values, suits, abbreviations, or stack
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>292</td>
+<td>        indices.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>293</td>
+<td>    :arg int limit:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>294</td>
+<td>        The number of items to retrieve for each term.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>295</td>
+<td>    :arg bool sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>296</td>
+<td>        Whether or not to sort the results, by poker ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>297</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>298</td>
+<td>        If ``sort=True``, the rank dict to refer to for sorting.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>299</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>300</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>301</td>
+<td>        A list of the specified cards, if found.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>302</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>303</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>304</td>
+<td>    got_cards = []
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>305</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>306</td>
+<td>    try:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>307</td>
+<td>        indices = find_list(cards, terms, limit=limit)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>308</td>
+<td>        got_cards = [cards[i] for i in indices if cards[i]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>309</td>
+<td>            not in got_cards]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>310</td>
+<td>        cards = [v for i, v in enumerate(cards) if i not in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>311</td>
+<td>    except:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>312</td>
+<td>        indices = []
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>313</td>
+<td>        for item in terms:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>314</td>
+<td>            try:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>315</td>
+<td>                card = cards[item]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>316</td>
+<td>                if card not in got_cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>317</td>
+<td>                    got_cards.append(card)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>318</td>
+<td>                    indices.append(item)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>319</td>
+<td>            except:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>320</td>
+<td>                indices += find_card(cards, item, limit=limit)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>321</td>
+<td>                got_cards += [cards[i] for i in indices if
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>322</td>
+<td>                    cards[i] not in got_cards]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>323</td>
+<td>        cards = [v for i, v in enumerate(cards) if i not in indices]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>324</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>325</td>
+<td>    if sort:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>326</td>
+<td>        got_cards = sort_cards(got_cards, ranks)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>327</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>328</td>
+<td>    return cards, got_cards
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>329</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>330</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>331</td>
+<td>def open_cards(filename=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>332</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>333</td>
+<td>    Open cards from a txt file.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>334</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>335</td>
+<td>    :arg str filename:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>336</td>
+<td>        The filename of the deck file to open. If no filename given,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>337</td>
+<td>        defaults to "cards-YYYYMMDD.txt", where "YYYYMMDD" is the year, month,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>338</td>
+<td>        and day. For example, "cards-20140711.txt".
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>339</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>340</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>341</td>
+<td>        The opened cards, as a list.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>342</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>343</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>344</td>
+<td>    filename = filename or "cards-%s.txt" % (time.strftime("%Y%m%d"))
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>345</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>346</td>
+<td>    with open(filename, "r") as deck_file:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>347</td>
+<td>        card_data = [line.rstrip("\n") for line in deck_file.readlines()]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>348</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>349</td>
+<td>    cards = [None] * len(card_data)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>350</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>351</td>
+<td>    for i, card in enumerate(card_data):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>352</td>
+<td>        card = card.split()
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>353</td>
+<td>        cards[i] = Card(card[0], card[1])
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>354</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>355</td>
+<td>    return cards
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>356</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>357</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>358</td>
+<td>def random_card(cards, remove=False):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>359</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>360</td>
+<td>    Returns a random card from the Stack. If ``remove=True``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>361</td>
+<td>    also remove the card from the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>362</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>363</td>
+<td>    :arg bool remove:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>364</td>
+<td>        Whether or not to remove the card from the deck.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>365</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>366</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>367</td>
+<td>        A random Card object, from the Stack.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>368</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>369</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>370</td>
+<td>    if not remove:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>371</td>
+<td>        return random.choice(cards)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>372</td>
+<td>    else:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>373</td>
+<td>        i = random.randrange(len(cards))
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>374</td>
+<td>        card = cards[i]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>375</td>
+<td>        del cards[i]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>376</td>
+<td>        return card
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>377</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>378</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>379</td>
+<td>def save_cards(cards, filename=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>380</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>381</td>
+<td>    Save the given cards, in plain text, to a txt file.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>382</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>383</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>384</td>
+<td>        The cards to save. Can be a ``Stack``, ``Deck``, or ``list``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>385</td>
+<td>    :arg str filename:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>386</td>
+<td>        The filename to use for the cards file. If no filename given,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>387</td>
+<td>        defaults to "cards-YYYYMMDD.txt", where "YYYYMMDD" is the year, month,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>388</td>
+<td>        and day. For example, "cards-20140711.txt".
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>389</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>390</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>391</td>
+<td>    filename = filename or "cards-%s.txt" % (time.strftime("%Y%m%d"))
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>392</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>393</td>
+<td>    with open(filename, "w") as deck_file:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>394</td>
+<td>        card_reprs = ["%s %s\n" % (card.value, card.suit) for card in cards]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>395</td>
+<td>        card_reprs[-1] = card_reprs[-1].rstrip("\n")
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>396</td>
+<td>        for card in card_reprs:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>397</td>
+<td>            deck_file.write(card)
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>398</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>399</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>400</td>
+<td>def sort_card_indices(cards, indices, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>401</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>402</td>
+<td>    Sorts the given Deck indices by the given ranks. Must also supply the
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>403</td>
+<td>    ``Stack``, ``Deck``, or ``list`` that the indices are from.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>404</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>405</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>406</td>
+<td>        The cards the indices are from. Can be a ``Stack``, ``Deck``, or
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>407</td>
+<td>        ``list``
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>408</td>
+<td>    :arg list indices:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>409</td>
+<td>        The indices to sort.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>410</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>411</td>
+<td>        The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>412</td>
+<td>        default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>413</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>414</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>415</td>
+<td>        The sorted indices.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>416</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>417</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>418</td>
+<td>    ranks = ranks or DEFAULT_RANKS
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>419</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>420</td>
+<td>    if ranks.get("suits"):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>421</td>
+<td>        indices = sorted(
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>422</td>
+<td>            indices,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>423</td>
+<td>            key=lambda x: ranks["suits"][cards[x].suit] if
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>424</td>
+<td>                cards[x].suit != None else 0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>425</td>
+<td>        )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>426</td>
+<td>    if ranks.get("values"):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>427</td>
+<td>        indices = sorted(
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>428</td>
+<td>            indices,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>429</td>
+<td>            key=lambda x: ranks["values"][cards[x].value]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>430</td>
+<td>        )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>431</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>432</td>
+<td>    return indices
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>433</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>434</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>435</td>
+<td>def sort_cards(cards, ranks=None):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>436</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>437</td>
+<td>    Sorts a given list of cards, either by poker ranks, or big two ranks.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>438</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>439</td>
+<td>    :arg cards:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>440</td>
+<td>        The cards to sort.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>441</td>
+<td>    :arg dict ranks:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>442</td>
+<td>        The rank dict to reference for sorting. If ``None``, it will
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>443</td>
+<td>        default to ``DEFAULT_RANKS``.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>444</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>445</td>
+<td>    :returns:
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>446</td>
+<td>        The sorted cards.
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>447</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>448</td>
+<td>    """
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>449</td>
+<td>    ranks = ranks or DEFAULT_RANKS
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>450</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>451</td>
+<td>    if ranks.get("suits"):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>452</td>
+<td>        cards = sorted(
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>453</td>
+<td>            cards,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>454</td>
+<td>            key=lambda x: ranks["suits"][x.suit] if x.suit != None else 0
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>455</td>
+<td>        )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>456</td>
+<td>    if ranks.get("values"):
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>457</td>
+<td>        cards = sorted(
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>458</td>
+<td>            cards,
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>459</td>
+<td>            key=lambda x: ranks["values"][x.value]
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>460</td>
+<td>        )
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>461</td>
+<td>
+</td>
+<td>-1</td>
+</tr>
+<tr bgcolor="#C6BABA"><td>462</td>
+<td>    return cards</td>
+<td>-1</td>
+</tr>
+</table>
+</body>
+</html>

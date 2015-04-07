@@ -1,0 +1,34 @@
+ --- modulename: test_card6, funcname: test_le
+test_card6.py(37):     ace_spades = pydealer.Card("Ace", "Spades")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card6.py(38):     two_diamonds = pydealer.Card("2", "Diamonds")
+ --- modulename: card, funcname: __init__
+card.py(48):         self.value = str(value).capitalize()
+card.py(49):         self.suit = str(suit).capitalize() if suit else suit
+card.py(50):         self.abbrev = card_abbrev(self.value, self.suit)
+ --- modulename: card, funcname: card_abbrev
+card.py(371):     if value == "Joker":
+card.py(373):     elif value == "10":
+card.py(376):         return "%s%s" % (value[0], suit[0])
+card.py(51):         self.name = card_name(self.value, self.suit)
+ --- modulename: card, funcname: card_name
+card.py(393):     if value == "Joker":
+card.py(396):         return "%s of %s" % (value, suit)
+test_card6.py(39):     try:
+test_card6.py(40):         assert card<=ace_spades
+ --- modulename: card, funcname: __ge__
+card.py(96):         if isinstance(other, Card):
+card.py(108):             return False
+test_card6.py(43):     except AssertionError:
+test_card6.py(44):         return 1
