@@ -94,6 +94,8 @@ Since the 'pydealer' project did not have these things, we had to modify the tes
 
 We imported the os and sys module and added the path of the src folder to the system path so it could look for the source files in the 'src' folder.  Because of Python versioning issues, instead of assertX methods we had to use assert keyword. Also, every test case returns a value of 0 it if passes and 1 if it fails. This is required to find how how many test cases have passed and failed for suspiciousness calculation.  
 
+We have learnt in class that testing all possible inputs to a system is not possible. We have tested some sample data that we have created and also tested on one test file from a live github project. We have tested as much as we could, given the assumptions and requirements of our system.  
+
 #Results
 
 After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and which lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).Below is a screen shot of the HTML page produced
