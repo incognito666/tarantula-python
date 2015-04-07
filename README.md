@@ -19,7 +19,7 @@ Project Report 1b
 ## *Problem 1: How much of my code is actally tested ? Use Code Coverage.       
 <b>What is Code Coverage?  </b>
 
-The Wikipedia definition<sup>[2]</sup> of code coverage is "In computer science, code coverage is a measure used to describe the degree to which the source code of a program is tested by a particular test suite. A program with high code coverage has been more thoroughly tested and has a lower chance of containing software bugs than a program with low code coverage."  
+The Wikipedia definition<sup>[4]</sup> of code coverage is "In computer science, code coverage is a measure used to describe the degree to which the source code of a program is tested by a particular test suite. A program with high code coverage has been more thoroughly tested and has a lower chance of containing software bugs than a program with low code coverage."  
 
 Finding out the coverage that a test suite/test case gives is very beneficial for a developer; she can find out which functions have not been tested, what conditions have not been tested very easily.  
 
@@ -45,8 +45,8 @@ In our project, we are using coverage.py and figleaf.py, two Python libraries fo
     
 
 ####<b>Related Work</b>    
-The closest tool to what we our doing is Tarantula.<sup>[3]</sup>   
-Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C<sup>[4]</sup>. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement<sup>[5]</sup>.
+The closest tool to what we our doing is Tarantula.<sup>[1]</sup>   
+Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C<sup>[6]</sup>. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement<sup>[7]</sup>.
 
 #Methods  
 
@@ -152,15 +152,21 @@ Another possible improvement can be to integrate the output of coverage and faul
 
 One thing that we felt a desperate need was for good figleaf APIs. When you compare it to what coverage.py has, the APIs of figleaf seem very less cleanly defined and they certainly lack some methods for easier data access. This could be a good addition to the existing set of APIs.    
 
-#References
+#References  
 
-[1] http://arxiv.org/ftp/arxiv/papers/1201/1201.3985.pdf  "Fault Localization for Java Programs Using Probabilistic Program
-Dependence Graph" by A.Askarunisa, T. Manju and B. Giri Babu
+[1] http://spideruci.org/papers/jones05.pdf "Empirical Evaluation of the Tarantula Automatic Fault-Localization Technique", by James A. Jones and Mary Jean Harrold  
 
-[2] http://en.wikipedia.org/wiki/Code_coverage
+[2] http://nedbatchelder.com/code/coverage/  
 
-[3] http://spideruci.org/papers/jones05.pdf "Empirical Evaluation of the Tarantula Automatic Fault-Localization Technique", by James A. Jones and Mary Jean Harrold
+[3] http://darcs.idyll.org/~t/projects/figleaf/doc/  
 
-[4] http://bugassist.mpi-sws.org/
+[4] http://en.wikipedia.org/wiki/Code_coverage  
 
-[5] https://code.google.com/p/hawk-eye/
+[5] http://arxiv.org/ftp/arxiv/papers/1201/1201.3985.pdf  "Fault Localization for Java Programs Using Probabilistic Program
+Dependence Graph" by A.Askarunisa, T. Manju and B. Giri Babu  
+
+[6] http://bugassist.mpi-sws.org/
+
+[7] https://code.google.com/p/hawk-eye/  
+
+[8] https://github.com/prove/tarantula
