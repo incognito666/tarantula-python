@@ -19,7 +19,7 @@ Project Report 1b
 ## *Problem 1: How much of my code is actally tested ? Use Code Coverage.       
 <b>What is Code Coverage?  </b>
 
-The Wikipedia definition of code coverage is "In computer science, code coverage is a measure used to describe the degree to which the source code of a program is tested by a particular test suite. A program with high code coverage has been more thoroughly tested and has a lower chance of containing software bugs than a program with low code coverage."  
+The Wikipedia definition<sup>[2]</sup> of code coverage is "In computer science, code coverage is a measure used to describe the degree to which the source code of a program is tested by a particular test suite. A program with high code coverage has been more thoroughly tested and has a lower chance of containing software bugs than a program with low code coverage."  
 
 Finding out the coverage that a test suite/test case gives is very beneficial for a developer; she can find out which functions have not been tested, what conditions have not been tested very easily.  
 
@@ -46,7 +46,7 @@ In our project, we are using coverage.py and figleaf.py, two Python libraries fo
 
 ####<b>Related Work</b>    
 The closest tool to what we our doing is Tarantula.<sup>[3]</sup>   
-Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C<sup>[5]</sup>. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement<sup>[6]</sup>.
+Other related work in this field includes the work of Max Planck Institute, Bug-Assist, which is an error localization tool for ANSI-C<sup>[4]</sup>. Hawk-eye is another similar tool for Java and uses the Tarantula formula alongwith Ochiai formula to calculate suspiciousness of each statement<sup>[5]</sup>.
 
 #Methods  
 
@@ -65,6 +65,8 @@ Suspiciousness values and their meanings:
  1 : This line is the most likely cause for the test to fail.  
  
  A higher value denotes a higher probability of that line being the cause of failure for the test case.  
+
+The formula for suspiciousness varies from technique to technique; the formula we have used is just one of the possibilities.
 
 Our "two techniques":  
 
@@ -96,12 +98,13 @@ We imported the os and sys module and added the path of the src folder to the sy
 
 After the successful execution of our tool, we can see the files that have been touched by test cases; which lines have been covered and which lines have not been covered. This is visible in an HTML page (newcovhtml/index.html). We can also see the suspiciousness of each file in another HTML page. (pyh.html).Below is a screen shot of the HTML page produced
 
-<img src="HTML_Screen_Shot.png">
+<img src="HTML_Screen_Shot.png"><br/>
+<img src="susp_red.png">
 
 From the table shown below you can see that on the same test case environment it takes figleaf half the time to execute than while using coverage. This could be in part due to coverage touching files deeper down the stack than figleaf does which can be seen in the html files located in the repo under 'FinalTestRuns/Coverage/PyDealer/susp' and 'FinalTestRuns/figleaf/PyDealer/susp', where card is the only source file shown as having code covered in figleaf while coverage covers more of the source files in PyDealer. 
 
 | Trials              | Figleaf     | Coverage    |
-|---------------------|-------------|-------------|
+|--------------------:|-------------|-------------|
 | 1                   | 2.315999985 | 5.129513025 |
 | 2                   | 2.351999998 | 5.151515007 |
 | 3                   | 2.414000034 | 5.328532934 |
@@ -113,7 +116,7 @@ From the table shown below you can see that on the same test case environment it
 | 9                   | 2.34800005  | 5.104000092 |
 | Average Time in Sec | 2.339111143 | 5.136617872 |  
 
-Seeing that Coverage touches more lines of code through a deeper stack would be great for a developer who is performing an integration test of their code inside a larger system. But if they just want to quickly run through the functionality of their class or module figleaf would be the better choice. 
+Seeing that Coverage.py touches more lines of code through a deeper stack would be great for a developer who is performing an integration test of their code inside a larger system. But if they just want to quickly run through the functionality of their class or module figleaf would be the better choice. 
 
 #Discussion
  
@@ -136,13 +139,18 @@ Figleaf does not allow us to get coverage values of individual files, that is, t
 
 #Conclusion
 
-During the course of our project, 
+As per our evaluations regarding the run times, we can see that Figleaf was faster and hence can be of great use in places where the codebase is huge or when you have a time constraint to finish the testing.  
+
+On the other hand, coverage.py gives an exhaustive analysis of the files. It is ideal for cases where the testing is very important for example in mission critical systems.  
+
 
 #Future Work
 
-One possible improvement can be to get rid of the assumptions, that is, the folder structure can be dynamic and can be taken as an input from the developer. To find out whether a test case has failed or not without having to return a 0 or 1 explicitly. The front end can be improved too; at the moment we have implemented a very basic UI.  
+A project is never truly 'complete'. There is always a feature that can be added or a small tweak that can make the code more efficient. Our project follows this too. One possible improvement can be to get rid of the assumptions, that is, the folder structure can be dynamic and can be taken as an input from the developer. To find out whether a test case has failed or not without having to return a 0 or 1 explicitly. The front end can be improved too; at the moment we have implemented a very basic UI.  
 
-Another possible improvement can be to integrate the output of coverage and fault localization so that the developer can see in one place which lines have not been covered and which line caused a test case to fail.
+Another possible improvement can be to integrate the output of coverage and fault localization so that the developer can see in one place which lines have not been covered and which line caused a test case to fail.  
+
+One thing that we felt a desperate need was for good figleaf APIs. When you compare it to what coverage.py has, the APIs of figleaf seem very less cleanly defined and they certainly lack some methods for easier data access. This could be a good addition to the existing set of APIs.    
 
 #References
 
@@ -153,8 +161,6 @@ Dependence Graph" by A.Askarunisa, T. Manju and B. Giri Babu
 
 [3] http://spideruci.org/papers/jones05.pdf "Empirical Evaluation of the Tarantula Automatic Fault-Localization Technique", by James A. Jones and Mary Jean Harrold
 
-[4] http://en.wikipedia.org/wiki/Code_coverage
+[4] http://bugassist.mpi-sws.org/
 
-[5] http://bugassist.mpi-sws.org/
-
-[6] https://code.google.com/p/hawk-eye/
+[5] https://code.google.com/p/hawk-eye/
