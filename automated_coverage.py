@@ -122,23 +122,17 @@ for file in os.listdir('test'):
                 cov.start() ###
                 result = getattr(mod,funcName)()
                 total_tests+= 1
-##                if not os.path.exists("codeGraph"):    
-##                    os.mkdir('codeGraph')	
-                #codegraph.path = '.\codeGraph'
-##                outName = f + '_-' + funcName + '.ftest'
-##                cgn = os.path.join('codeGraph',outName)
-##                tmp_pyfile = open('tmp.py', 'w')
-##                tmp_pyfile.write("import trace \nfrom test." + f + " import " + funcName + ' \n\n\ntracer = trace.Trace(count=False, trace=True) \ntracer.runfunc(' + funcName + ") \n\n")
-##                tmp_pyfile.close
-##                codegraph.funcNameArray.append(funcName)
-##                codegraph.resultsArray.append(result)
-                #cg_file = open(cgn, 'w')
-                #sys.sdtout = cg_file
-                #tracer = trace.Trace(count=False, trace=True)
-                #tracer.runfunc(mod.funcName())
-##                os.system('C:\Python34\python.exe tmp.py > "' + os.path.abspath(cgn) +'"')
-##                os.remove("tmp.py")
-                #sys.stdout = sys.__stdout__
+                if not os.path.exists("codeGraph"):    
+                    os.mkdir('codeGraph')	
+                codegraph.path = '.\codeGraph'
+                outName = f + '_-' + funcName + '.ftest'
+                cgn = os.path.join('codeGraph',outName)
+                tmp_pyfile = open('tmp.py', 'w')
+                tmp_pyfile.write("import trace \nfrom test." + f + " import " + funcName + ' \n\n\ntracer = trace.Trace(count=False, trace=True) \ntracer.runfunc(' + funcName + ") \n\n")
+                tmp_pyfile.close
+                codegraph.funcNameArray.append(funcName)
+                codegraph.resultsArray.append(result)
+                os.system('C:\Python34\python.exe tmp.py > "' + os.path.abspath(cgn) +'"')
                 score[i]=result
                 print("result is --------------- ",result)
                 cov.stop()
@@ -207,8 +201,8 @@ showSuspiciousness(abs_source_files, susp)
 print("suspiciousness is : ",str(susp))
     
 total_time = time.time() - start_time
-##codegraph.traceToDotConversion()
-##codegraph.dot_to_svg()
+codegraph.traceToDotConversion()
+codegraph.dot_to_svg()
 
 print("Execution time: " + str(total_time) + " sec")
         
